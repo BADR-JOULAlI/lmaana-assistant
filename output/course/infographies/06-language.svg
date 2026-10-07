@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 06 - language</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-language">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-language" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-language)">
+		<g transform="">
+			<rect x="0" y="179" width="305" height="118" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="266" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,532) scale(1,-1)">Question</text>
+			<text x="17" y="233" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,466) scale(1,-1)">Indices de script et mots</text>
+			<text x="17" y="210" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,420) scale(1,-1)">Langue détectée</text>
+			<rect x="348" y="179" width="305" height="118" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="365" y="266" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,532) scale(1,-1)">Choix utilisateur</text>
+			<text x="365" y="233" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,466) scale(1,-1)">Auto ou langue explicite</text>
+			<text x="365" y="210" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,420) scale(1,-1)">Priorité à la préférence</text>
+			<rect x="695" y="179" width="305" height="118" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="712" y="266" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,532) scale(1,-1)">Langue cible</text>
+			<text x="712" y="233" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,466) scale(1,-1)">fr / ar / ary</text>
+			<text x="712" y="210" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,420) scale(1,-1)">ary-Latn / en</text>
+			<path d="M 313,239 L 340,239 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="340 239, 331.2242 243.7943, 331.2242 234.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 661,239 L 686,239 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="686 239, 677.2242 243.7943, 677.2242 234.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<rect x="0" y="13" width="305" height="115" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd; stroke-dasharray: 6, 4;"/>
+			<text x="17" y="97" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,194) scale(1,-1)">Indéterminée</text>
+			<text x="17" y="64" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,128) scale(1,-1)">Demander une précision</text>
+			<rect x="348" y="13" width="305" height="115" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="365" y="97" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,194) scale(1,-1)">Sources</text>
+			<text x="365" y="64" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,128) scale(1,-1)">Peuvent être dans</text>
+			<text x="365" y="41" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,82) scale(1,-1)">une autre langue</text>
+			<rect x="695" y="13" width="305" height="115" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="712" y="97" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,194) scale(1,-1)">Génération</text>
+			<text x="712" y="64" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,128) scale(1,-1)">Rédiger puis contrôler</text>
+			<text x="712" y="41" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,82) scale(1,-1)">Format + fidélité + langue</text>
+			<path d="M 151,170 L 151,134 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="151 134, 155.7943 142.7758, 146.2057 142.7758" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 847,170 L 847,134 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="847 134, 851.7943 142.7758, 842.2057 142.7758" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 661,70 L 686,70 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="686 70, 677.2242 74.79426, 677.2242 65.20574" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+		</g>
+	</g>
+</svg>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 02 - architecture</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-architecture">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-architecture" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-architecture)">
+		<g transform="">
+			<rect x="0" y="174" width="314" height="124" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="267" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,534) scale(1,-1)">Streamlit</text>
+			<text x="17" y="234" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,468) scale(1,-1)">Question écrite</text>
+			<text x="17" y="211" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,422) scale(1,-1)">Port 8501</text>
+			<rect x="343" y="174" width="314" height="124" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="360" y="267" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,534) scale(1,-1)">FastAPI</text>
+			<text x="360" y="234" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,468) scale(1,-1)">Pipeline + contrôles</text>
+			<text x="360" y="211" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,422) scale(1,-1)">Port 8000</text>
+			<rect x="686" y="174" width="314" height="124" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="703" y="267" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,534) scale(1,-1)">Ollama + Qwen</text>
+			<text x="703" y="234" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,468) scale(1,-1)">Rédaction du candidat</text>
+			<text x="703" y="211" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,422) scale(1,-1)">Port 11434</text>
+			<path d="M 317,239 L 336,239 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="336 239, 327.2242 243.7943, 327.2242 234.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 660,239 L 679,239 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="679 239, 670.2242 243.7943, 670.2242 234.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<rect x="0" y="5" width="314" height="113" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd; stroke-dasharray: 6, 4;"/>
+			<text x="17" y="87" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,174) scale(1,-1)">Voix · prévue</text>
+			<text x="17" y="54" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,108) scale(1,-1)">Microphone -&gt; Lmaana 2.4</text>
+			<rect x="343" y="5" width="314" height="113" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="360" y="87" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,174) scale(1,-1)">Qdrant local</text>
+			<text x="360" y="54" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,108) scale(1,-1)">Vecteurs + passages + sources</text>
+			<rect x="686" y="5" width="314" height="113" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="703" y="87" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,174) scale(1,-1)">Résultat</text>
+			<text x="703" y="54" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,108) scale(1,-1)">Contrôlé par FastAPI</text>
+			<text x="703" y="31" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,62) scale(1,-1)">Réponse ou abstention</text>
+			<path d="M 500,173 L 500,120 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="500 120, 504.7943 128.7758, 495.2057 128.7758" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 842,171 L 842,120 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="842 120, 846.7943 128.7758, 837.2057 128.7758" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 156,122 L 156,169 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="156 169, 151.2057 160.2242, 160.7943 160.2242" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+		</g>
+	</g>
+</svg>

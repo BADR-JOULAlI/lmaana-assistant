@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "dataset_id": "synthetic-metric-examples-v1",
+  "notes": "Authored fictional examples to check metric arithmetic. These are NOT outputs from Lmaana, Whisper or Qwen and are not a model benchmark.",
+  "retrieval_k": [1, 3, 5],
+  "cer_remove_whitespace": false,
+  "asr": [
+    {"id": "word-edits", "reference": "je veux une carte", "hypothesis": "je veux carte maintenant"},
+    {"id": "exact-darija", "reference": "شنو خاصني", "hypothesis": "شنو خاصني"}
+  ],
+  "retrieval": [
+    {"id": "two-relevant", "relevant_ids": ["A", "C"], "ranked_ids": ["B", "A", "C"]},
+    {"id": "missed", "relevant_ids": ["D"], "ranked_ids": ["E", "F", "G"]},
+    {"id": "negative", "relevant_ids": [], "ranked_ids": []}
+  ],
+  "responses": [
+    {"id": "supported-answer", "expected_outcome": "answered", "actual_outcome": "answered", "expected_reply_language": "fr", "actual_reply_language": "fr", "latency_ms": 1000, "claim_support": ["supported", "supported"]},
+    {"id": "partially-supported-answer", "expected_outcome": "answered", "actual_outcome": "answered", "expected_reply_language": "en", "actual_reply_language": "en", "latency_ms": 2000, "claim_support": ["supported", "partial"]},
+    {"id": "withheld-output", "expected_outcome": "answered", "actual_outcome": "insufficient_evidence", "expected_reply_language": "ary", "actual_reply_language": "ary", "generation_failed": true, "latency_ms": 5000},
+    {"id": "expected-abstention", "expected_outcome": "insufficient_evidence", "actual_outcome": "insufficient_evidence", "expected_reply_language": "ary-Latn", "actual_reply_language": "ary-Latn", "latency_ms": 100}
+  ]
+}

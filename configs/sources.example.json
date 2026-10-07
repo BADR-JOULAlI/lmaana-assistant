@@ -1,0 +1,70 @@
+{
+  "allowed_hosts": ["marocpme.gov.ma", "www.casainvest.ma", "www.tax.gov.ma"],
+  "sources": [
+    {
+      "id": "dgi-ae-2026-registration",
+      "title": "DGI — guide auto-entrepreneur 2026, inscription au RNAE",
+      "publisher": "Direction générale des impôts (DGI)",
+      "url": "https://www.tax.gov.ma/wps/wcm/connect/631b0232-3f9d-4d12-a8c9-053ccc921bce/Guide__AE%2B_FR%2B_2026.pdf?CACHEID=ROOTWORKSPACE-631b0232-3f9d-4d12-a8c9-053ccc921bce-q0pxu4M&MOD=AJPERES",
+      "language": "fr",
+      "topic": "auto-entrepreneur-registration",
+      "kind": "pdf",
+      "pages": [11, 12],
+      "pdf_section": {
+        "start_marker": "❖ Quelle est la procédure d’inscription au registre national de l’auto-entrepreneur ?",
+        "end_marker": "❖ Comment s’effectue",
+        "running_header": "REGIME FISCAL DE L’AUTO-ENTREPRENEUR",
+        "printed_page_offset": -1
+      },
+      "reviewed": true,
+      "reuse_status": "Guide officiel public. Le PDF et son texte ne sont pas redistribués dans Git ; vérifier les droits avant redistribution.",
+      "freshness_note": "Édition 2026, section inscription uniquement, pages PDF 11–12 (pages imprimées 10–11). Guide simplifié, ne remplace pas les textes en vigueur.",
+      "verification": {
+        "status": "verified",
+        "checked_on": "2026-10-03",
+        "review_due": "2026-11-02",
+        "evidence_urls": [
+          "https://www.tax.gov.ma/wps/wcm/connect/631b0232-3f9d-4d12-a8c9-053ccc921bce/Guide__AE%2B_FR%2B_2026.pdf?CACHEID=ROOTWORKSPACE-631b0232-3f9d-4d12-a8c9-053ccc921bce-q0pxu4M&MOD=AJPERES"
+        ],
+        "content_sha256": "7fa82a063e2f74001ecd03f4c2803e86295b35b514d4eef4f8adaee695bab9cd",
+        "note": "Revue de l’édition 2026 téléchargée depuis tax.gov.ma, section d’inscription contrôlée visuellement sur les pages PDF 11–12. La continuité de la demande signée, des banques partenaires de Barid Al-Maghrib, des pièces et de l’alternative pour les étrangers, ainsi que du délai de dépôt, est conservée. Approbation limitée à la restitution de cette section, pas à l’éligibilité, à la fiscalité ni au délai de délivrance de la carte. Le guide est simplifié et ne remplace pas les textes en vigueur ; confirmer les modalités pratiques avec le guichet. Réexamen interne sous 30 jours, sans garantie d’absence de changement entre-temps."
+      }
+    },
+    {
+      "id": "marocpme-ae-registration-brochure",
+      "title": "Auto-entrepreneur — inscription en 3 étapes",
+      "publisher": "Maroc PME",
+      "url": "https://marocpme.gov.ma/wp-content/uploads/2020/05/AE-D%C3%A9pliant-FINAL-1.pdf",
+      "language": "fr-ar",
+      "topic": "auto-entrepreneur-registration",
+      "kind": "pdf",
+      "pages": [2],
+      "reviewed": true,
+      "reuse_status": "Publicly accessible official brochure. Raw text is not redistributed in Git; review terms before redistribution.",
+      "freshness_note": "Brochure dans une URL datée de 2020. Référence historique, pas une confirmation des exigences actuelles.",
+      "verification": {
+        "status": "historical",
+        "checked_on": "2026-10-03",
+        "note": "Texte inspecté, mais applicabilité actuelle non confirmée. Le passage arabe omet la précision « partenaires » présente dans le français."
+      }
+    },
+    {
+      "id": "cri-casablanca-ae-procedure",
+      "title": "CRI Casablanca-Settat — étapes du statut auto-entrepreneur",
+      "publisher": "CRI Casablanca-Settat",
+      "url": "https://www.casainvest.ma/ar/الإجراءات",
+      "language": "ar",
+      "topic": "auto-entrepreneur-registration",
+      "kind": "html",
+      "section_heading": "إجراءات الحصول على صفة المقاول الذاتي",
+      "reviewed": true,
+      "reuse_status": "Page officielle publique. Seul le manifeste est versionné, pas le contenu téléchargé.",
+      "freshness_note": "Page consultée le 2026-10-03, sans date de mise à jour de cette procédure. Ne donne pas la liste détaillée des pièces.",
+      "verification": {
+        "status": "unverified",
+        "checked_on": "2026-10-03",
+        "note": "La section indique les banques partenaires de Poste Maroc. Consultation de la page uniquement ; l'actualité et l'exhaustivité des exigences ne sont pas confirmées."
+      }
+    }
+  ]
+}

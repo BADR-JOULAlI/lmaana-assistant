@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 03 - roles</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-roles">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-roles" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-roles)">
+		<g transform="">
+			<rect x="0" y="176" width="314" height="117" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="17" y="262" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,524) scale(1,-1)">Modèle</text>
+			<text x="17" y="229" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,458) scale(1,-1)">Qwen3-4B</text>
+			<text x="17" y="206" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,412) scale(1,-1)">Poids de génération</text>
+			<rect x="343" y="176" width="314" height="117" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="360" y="262" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,524) scale(1,-1)">Moteur</text>
+			<text x="360" y="229" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,458) scale(1,-1)">Ollama</text>
+			<text x="360" y="206" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,412) scale(1,-1)">Charge et exécute les poids</text>
+			<rect x="686" y="176" width="314" height="117" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="703" y="262" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,524) scale(1,-1)">Application</text>
+			<text x="703" y="229" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,458) scale(1,-1)">Lmaana Assistant</text>
+			<text x="703" y="206" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,412) scale(1,-1)">Cherche, contrôle, affiche</text>
+			<path d="M 319,234 L 337,234 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="337 234, 328.2242 238.7943, 328.2242 229.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 662,234 L 680,234 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="680 234, 671.2242 238.7943, 671.2242 229.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<rect x="0" y="9" width="486" height="116" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="94" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,188) scale(1,-1)">Autre tâche : la parole</text>
+			<text x="17" y="61" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,122) scale(1,-1)">Lmaana 2.4 : audio -&gt; transcription</text>
+			<rect x="514" y="9" width="486" height="116" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="531" y="94" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,188) scale(1,-1)">Autre tâche : la recherche</text>
+			<text x="531" y="61" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,122) scale(1,-1)">Qdrant : vecteur -&gt; passages associés</text>
+			<text x="20" y="144" style="font-family: Arial; font-size: 18px;fill: rgb(0%,18%,65%); stroke:none;" transform="translate(0,288) scale(1,-1)">Ne pas confondre identité du modèle et logiciel d’exécution.</text>
+		</g>
+	</g>
+</svg>

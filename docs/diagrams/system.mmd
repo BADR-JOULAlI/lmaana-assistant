@@ -1,0 +1,27 @@
+flowchart TB
+    UI["Streamlit interface<br/>Record · type · edit transcripts<br/>Darija answers with citations"]
+    API["FastAPI application<br/>Normalize Darija · detect intent<br/>Retrieve · generate · validate citations"]
+    ASR["Speech recognition<br/>Lmaana 2.4 primary<br/>Whisper comparison baseline"]
+    RET["Retrieval adapter<br/>Qwen3-Embedding-0.6B on CPU<br/>Select supporting passages"]
+    LLM["Local generation<br/>Qwen3-4B Q4_K_M<br/>llama.cpp · GPU / CPU"]
+
+    UI <-->|"HTTP requests / results"| API
+    API <-->|"query / evidence"| RET
+    API <-->|"audio / transcript"| ASR
+    API <-->|"context / answer"| LLM
+
+    subgraph OFFLINE["KNOWLEDGE BASE"]
+        SRC["Reviewed official sources<br/>HTML · PDF · provenance"]
+        ING["Offline ingestion CLI<br/>Extract · review · chunk · embed"]
+        KB[("Qdrant local<br/>Versioned chunks + metadata")]
+        SRC --> ING --> KB
+    end
+
+    KB <-->|"vector search / passages"| RET
+
+    classDef app fill:#eaf2ff,stroke:#4163a1,color:#152e55,stroke-width:1.5px;
+    classDef model fill:#e2f4f0,stroke:#268371,color:#124b40,stroke-width:1.5px;
+    classDef storage fill:#fff2dc,stroke:#bb852b,color:#674310,stroke-width:1.5px;
+    class UI,API app;
+    class ASR,RET,LLM model;
+    class SRC,ING,KB storage;

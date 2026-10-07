@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 09 - vectors</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-vectors">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-vectors" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-vectors)">
+		<g transform="">
+			<rect x="0" y="168" width="310" height="130" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="17" y="267" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,534) scale(1,-1)">Question q</text>
+			<text x="17" y="234" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,468) scale(1,-1)">(1, 1, 0)</text>
+			<text x="17" y="211" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,422) scale(1,-1)">Longueur : racine(2)</text>
+			<rect x="344" y="168" width="310" height="130" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="361" y="267" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,534) scale(1,-1)">Passage d1</text>
+			<text x="361" y="234" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,468) scale(1,-1)">(1, 1, 0)</text>
+			<text x="361" y="211" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,422) scale(1,-1)">Cosinus avec q : 1</text>
+			<rect x="687" y="168" width="313" height="130" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="704" y="267" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,534) scale(1,-1)">Passage d2</text>
+			<text x="704" y="234" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,468) scale(1,-1)">(1, 0, 1)</text>
+			<text x="704" y="211" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,422) scale(1,-1)">Cosinus avec q : 0,5</text>
+			<path d="M 314,237 L 339,237 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="339 237, 330.2242 241.7943, 330.2242 232.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 660,237 L 682,237 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="682 237, 673.2242 241.7943, 673.2242 232.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="0" y="121" style="font-family: Arial; font-weight: 700; font-size: 20px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,242) scale(1,-1)">Plus proche dans cet espace</text>
+			<rect x="0" y="58" width="480" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="493" y="66" style="font-family: Arial; font-weight: 700; font-size: 21px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,132) scale(1,-1)">d1 : 1</text>
+			<rect x="0" y="8" width="240" height="32" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="252" y="16" style="font-family: Arial; font-weight: 700; font-size: 21px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,32) scale(1,-1)">d2 : 0,5</text>
+			<text x="658" y="77" style="font-family: Arial; font-size: 18px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,154) scale(1,-1)">Exemple mathématique,</text>
+			<text x="658" y="48" style="font-family: Arial; font-size: 18px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,96) scale(1,-1)">pas score mesuré du projet.</text>
+		</g>
+	</g>
+</svg>

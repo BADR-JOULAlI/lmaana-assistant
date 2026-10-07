@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 04 - memory</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-memory">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-memory" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-memory)">
+		<g transform="">
+			<text x="0" y="280" style="font-family: Arial; font-weight: 700; font-size: 21px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,560) scale(1,-1)">Sur disque</text>
+			<text x="506" y="280" style="font-family: Arial; font-weight: 700; font-size: 21px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,560) scale(1,-1)">Pendant l’inférence</text>
+			<rect x="0" y="60" width="430" height="186" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="215" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,430) scale(1,-1)">Fichier de poids</text>
+			<text x="17" y="182" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,364) scale(1,-1)">Q4_K_M : valeurs quantifiées</text>
+			<text x="17" y="159" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,318) scale(1,-1)">+ échelles + métadonnées</text>
+			<text x="17" y="136" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,272) scale(1,-1)">Environ 2,5 Go dans ce projet</text>
+			<rect x="506" y="192" width="494" height="55" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="523" y="216" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,432) scale(1,-1)">Poids chargés</text>
+			<rect x="506" y="126" width="494" height="55" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="523" y="150" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,300) scale(1,-1)">Cache KV : contexte et séquences</text>
+			<rect x="506" y="60" width="494" height="55" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="523" y="84" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,168) scale(1,-1)">Activations, buffers, affichage</text>
+			<path d="M 440,151 L 492,151 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="492 151, 483.2242 155.7943, 483.2242 146.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="0" y="17" style="font-family: Arial; font-size: 18px;fill: rgb(0%,18%,65%); stroke:none;" transform="translate(0,34) scale(1,-1)">RAM système ~32 Go  |  VRAM GPU ~8 Go  |  Schéma non proportionnel</text>
+		</g>
+	</g>
+</svg>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 05 - ctc</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-ctc">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-ctc" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-ctc)">
+		<g transform="">
+			<text x="0" y="281" style="font-family: Arial; font-weight: 700; font-size: 20px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,562) scale(1,-1)">Temps audio -&gt;</text>
+			<text x="0" y="219" style="font-family: Arial; font-weight: 700; font-size: 19px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,438) scale(1,-1)">1. Choix par pas</text>
+			<rect x="305" y="187" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="323" y="207" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,414) scale(1,-1)">a</text>
+			<rect x="417" y="187" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="435" y="207" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,414) scale(1,-1)">a</text>
+			<rect x="529" y="187" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="547" y="207" style="font-family: Arial; font-size: 22px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,414) scale(1,-1)">blanc</text>
+			<rect x="641" y="187" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="659" y="207" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,414) scale(1,-1)">a</text>
+			<rect x="753" y="187" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="771" y="207" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,414) scale(1,-1)">b</text>
+			<rect x="865" y="187" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="883" y="207" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,414) scale(1,-1)">b</text>
+			<text x="0" y="128" style="font-family: Arial; font-weight: 700; font-size: 19px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,256) scale(1,-1)">2. Fusion des répétitions</text>
+			<rect x="305" y="96" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="323" y="116" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,232) scale(1,-1)">a</text>
+			<rect x="417" y="96" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="435" y="116" style="font-family: Arial; font-size: 22px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,232) scale(1,-1)">blanc</text>
+			<rect x="529" y="96" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="547" y="116" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,232) scale(1,-1)">a</text>
+			<rect x="641" y="96" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="659" y="116" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,232) scale(1,-1)">b</text>
+			<text x="0" y="37" style="font-family: Arial; font-weight: 700; font-size: 19px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,74) scale(1,-1)">3. Retrait des blancs</text>
+			<rect x="305" y="5" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="323" y="25" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,50) scale(1,-1)">a</text>
+			<rect x="417" y="5" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="435" y="25" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,50) scale(1,-1)">a</text>
+			<rect x="529" y="5" width="100" height="60" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="547" y="25" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,50) scale(1,-1)">b</text>
+			<text x="789" y="29" style="font-family: Arial; font-weight: 700; font-size: 23px;fill: rgb(0%,18%,65%); stroke:none;" transform="translate(0,58) scale(1,-1)">Résultat : aab</text>
+		</g>
+	</g>
+</svg>

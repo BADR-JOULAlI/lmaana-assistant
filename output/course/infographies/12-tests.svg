@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 12 - tests</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-tests">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-tests" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-tests)">
+		<g transform="">
+			<rect x="0" y="6" width="1000" height="62" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="18" y="29" style="font-family: Arial; font-weight: 700; font-size: 21px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,58) scale(1,-1)">Unitaires : une règle, un cas limite</text>
+			<rect x="70" y="82" width="860" height="62" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="88" y="105" style="font-family: Arial; font-weight: 700; font-size: 21px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,210) scale(1,-1)">Intégration / contrats : liens entre composants</text>
+			<rect x="140" y="158" width="720" height="62" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="158" y="181" style="font-family: Arial; font-weight: 700; font-size: 21px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,362) scale(1,-1)">Bout en bout : scénario utilisateur</text>
+			<rect x="210" y="234" width="580" height="62" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="228" y="257" style="font-family: Arial; font-weight: 700; font-size: 21px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,514) scale(1,-1)">Qualité réelle : langues et faits annotés</text>
+		</g>
+	</g>
+</svg>

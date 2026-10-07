@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 01 - cover</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-cover">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-cover" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-cover)">
+		<g transform="">
+			<text x="3" y="259" style="font-family: Arial; font-weight: 700; font-size: 57px;fill: rgb(0%,18%,65%); stroke:none;" transform="translate(0,518) scale(1,-1)">01</text>
+			<rect x="0" y="50" width="316" height="160" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="179" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,358) scale(1,-1)">Reconnaître</text>
+			<text x="17" y="146" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,292) scale(1,-1)">Audio -&gt; texte</text>
+			<text x="17" y="123" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,246) scale(1,-1)">Lmaana 2.4 · prévu</text>
+			<path d="M 321,132 L 337,132 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="337 132, 328.2242 136.7943, 328.2242 127.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="345" y="259" style="font-family: Arial; font-weight: 700; font-size: 57px;fill: rgb(0%,18%,65%); stroke:none;" transform="translate(0,518) scale(1,-1)">02</text>
+			<rect x="342" y="50" width="316" height="160" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="359" y="179" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,358) scale(1,-1)">Retrouver</text>
+			<text x="359" y="146" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,292) scale(1,-1)">Question -&gt; preuves</text>
+			<text x="359" y="123" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,246) scale(1,-1)">Recherche · active</text>
+			<path d="M 663,132 L 679,132 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="679 132, 670.2242 136.7943, 670.2242 127.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="687" y="259" style="font-family: Arial; font-weight: 700; font-size: 57px;fill: rgb(0%,18%,65%); stroke:none;" transform="translate(0,518) scale(1,-1)">03</text>
+			<rect x="684" y="50" width="316" height="160" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="701" y="179" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,358) scale(1,-1)">Répondre</text>
+			<text x="701" y="146" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,292) scale(1,-1)">Preuves -&gt; rédaction</text>
+			<text x="701" y="123" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,246) scale(1,-1)">Qwen · qualité à évaluer</text>
+		</g>
+	</g>
+</svg>

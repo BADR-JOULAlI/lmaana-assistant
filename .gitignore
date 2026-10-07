@@ -30,8 +30,13 @@ Thumbs.db
 data/raw/
 data/processed/
 data/indexes/
+data/corpora/
+models/
+*.log
 outputs/
 work/
+tmp/
+output/course/__pycache__/
 *.sqlite3
 *.db
 
@@ -39,4 +44,5 @@ work/
 *.gguf
 *.safetensors
 *.bin
-
+*.pt
+*.ckpt

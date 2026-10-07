@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 07 - source</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-source">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-source" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-source)">
+		<g transform="">
+			<rect x="0" y="140" width="244" height="145" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="254" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,508) scale(1,-1)">Collecter</text>
+			<text x="17" y="221" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,442) scale(1,-1)">URL + date</text>
+			<text x="17" y="198" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,396) scale(1,-1)">+ contenu</text>
+			<path d="M 245,213 L 251,213 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="251 213, 242.2242 217.7943, 242.2242 208.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<rect x="252" y="140" width="244" height="145" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="269" y="254" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,508) scale(1,-1)">Identifier</text>
+			<text x="269" y="221" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,442) scale(1,-1)">Hash + pages</text>
+			<text x="269" y="198" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,396) scale(1,-1)">+ éditeur</text>
+			<path d="M 497,213 L 503,213 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="503 213, 494.2242 217.7943, 494.2242 208.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<rect x="504" y="140" width="244" height="145" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="521" y="254" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,508) scale(1,-1)">Vérifier</text>
+			<text x="521" y="221" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,442) scale(1,-1)">Revue + portée</text>
+			<text x="521" y="198" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,396) scale(1,-1)">+ échéance</text>
+			<path d="M 749,213 L 755,213 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="755 213, 746.2242 217.7943, 746.2242 208.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<rect x="756" y="140" width="244" height="145" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="773" y="254" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,508) scale(1,-1)">Autoriser</text>
+			<text x="773" y="221" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,442) scale(1,-1)">Valide aujourd’hui</text>
+			<text x="773" y="198" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,396) scale(1,-1)">et contenu identique</text>
+			<rect x="0" y="4" width="487" height="95" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="68" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,136) scale(1,-1)">Historique ou non vérifiée</text>
+			<text x="17" y="35" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,70) scale(1,-1)">Référence séparée, pas preuve affirmative</text>
+			<rect x="514" y="4" width="486" height="95" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="531" y="68" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,136) scale(1,-1)">Expirée ou contenu modifié</text>
+			<text x="531" y="35" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,70) scale(1,-1)">Nouvelle revue avant réutilisation</text>
+			<path d="M 614,132 L 740,108 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="740 108, 732.2762 114.3516, 730.4821 104.9325" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+		</g>
+	</g>
+</svg>

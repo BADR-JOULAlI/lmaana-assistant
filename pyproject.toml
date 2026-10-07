@@ -4,17 +4,32 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lmaana-assistant"
-version = "0.1.0"
+version = "0.2.0"
 description = "A Darija voice RAG assistant for Moroccan public-service information"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "beautifulsoup4>=4.12,<5",
+    "fastapi>=0.115,<1",
+    "httpx>=0.27,<1",
+    "pydantic-settings>=2.6,<3",
+    "pypdf>=5,<7",
+    "python-multipart>=0.0.9,<1",
+    "qdrant-client>=1.12,<2",
+    "truststore>=0.10,<1",
+    "uvicorn>=0.30,<1",
+]
+
+[project.scripts]
+lmaana = "lmaana_assistant.cli:main"
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.0",
-    "ruff>=0.6",
+    "pytest>=8,<10",
+    "ruff>=0.9,<1",
 ]
+ui = ["streamlit>=1.40,<2"]
+models = ["sentence-transformers>=3.3,<6"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -26,3 +41,6 @@ pythonpath = ["src"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

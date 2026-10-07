@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 10 - validation</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-validation">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-validation" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-validation)">
+		<g transform="">
+			<rect x="0" y="184" width="312" height="111" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="264" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,528) scale(1,-1)">Preuves admises</text>
+			<text x="17" y="231" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,462) scale(1,-1)">Sources + pertinence</text>
+			<rect x="344" y="184" width="312" height="111" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="361" y="264" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,528) scale(1,-1)">Qwen</text>
+			<text x="361" y="231" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,462) scale(1,-1)">Sortie JSON</text>
+			<rect x="688" y="184" width="312" height="111" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="705" y="264" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,528) scale(1,-1)">Contrôles</text>
+			<text x="705" y="231" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,462) scale(1,-1)">Structure, citations, langue</text>
+			<path d="M 317,236 L 337,236 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="337 236, 328.2242 240.7943, 328.2242 231.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 661,236 L 681,236 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="681 236, 672.2242 240.7943, 672.2242 231.2057" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<rect x="0" y="7" width="312" height="117" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="93" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,186) scale(1,-1)">Aucune preuve</text>
+			<text x="17" y="60" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,120) scale(1,-1)">Abstention expliquée</text>
+			<rect x="344" y="7" width="312" height="117" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd; stroke-dasharray: 6, 4;"/>
+			<text x="361" y="93" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,186) scale(1,-1)">Invalide</text>
+			<text x="361" y="60" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,120) scale(1,-1)">Une nouvelle tentative</text>
+			<text x="361" y="37" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,74) scale(1,-1)">Sinon : réponse non validée</text>
+			<rect x="688" y="7" width="312" height="117" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="705" y="93" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,186) scale(1,-1)">Valide aux contrôles</text>
+			<text x="705" y="60" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,120) scale(1,-1)">Réponse + références</text>
+			<text x="705" y="37" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,74) scale(1,-1)">Vérification humaine possible</text>
+			<path d="M 150,177 L 150,130 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="150 130, 154.7943 138.7758, 145.2057 138.7758" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 845,177 L 845,130 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="845 130, 849.7943 138.7758, 840.2057 138.7758" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<path d="M 755,175 L 572,134 Z" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="572 134, 581.6117 131.2403, 579.5154 140.5969" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+		</g>
+	</g>
+</svg>

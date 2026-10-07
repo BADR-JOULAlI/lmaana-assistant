@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="310" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Infographie 08 - chunks</title>
+	<desc>Schéma pédagogique du cours Lmaana Assistant.</desc>
+	<clipPath id="clip-chunks">
+		<rect x="0" y="0" width="1000" height="310"/>
+	</clipPath>
+	<g id="group-chunks" transform="scale(1,-1) translate(0,-310)" style="clip-path: url(#clip-chunks)">
+		<g transform="">
+			<text x="0" y="284" style="font-family: Arial; font-weight: 700; font-size: 20px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,568) scale(1,-1)">Document fictif : « Photo nécessaire, sauf pour les comptes déjà vérifiés. »</text>
+			<rect x="0" y="127" width="480" height="115" style="stroke: rgb(82%,82%,83%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(96%,96%,97%); fill-rule: evenodd; stroke-dasharray: 6, 4;"/>
+			<text x="17" y="211" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(8%,8%,8%); stroke:none;" transform="translate(0,422) scale(1,-1)">Coupe mécanique</text>
+			<text x="17" y="178" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,356) scale(1,-1)">Chunk A : Photo nécessaire</text>
+			<text x="17" y="155" style="font-family: Arial; font-size: 17px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,310) scale(1,-1)">Chunk B : sauf pour les comptes...</text>
+			<rect x="520" y="127" width="480" height="115" style="stroke: rgb(0%,18%,65%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(0%,18%,65%); fill-rule: evenodd;"/>
+			<text x="537" y="211" style="font-family: Arial; font-weight: 700; font-size: 22px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,422) scale(1,-1)">Frontière de sens</text>
+			<text x="537" y="178" style="font-family: Arial; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,356) scale(1,-1)">Un chunk : règle + exception</text>
+			<text x="0" y="77" style="font-family: Arial; font-size: 20px;fill: rgb(34%,34%,34%); stroke:none;" transform="translate(0,154) scale(1,-1)">Le chunk A peut devenir une obligation sans exception.</text>
+			<text x="0" y="37" style="font-family: Arial; font-size: 20px;fill: rgb(0%,18%,65%); stroke:none;" transform="translate(0,74) scale(1,-1)">Overlap : utile aux frontières, mais ne remplace pas une section complète.</text>
+		</g>
+	</g>
+</svg>
