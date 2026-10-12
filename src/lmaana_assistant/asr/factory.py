@@ -5,6 +5,8 @@ from lmaana_assistant.config import Settings
 
 
 def make_asr(settings: Settings):
-    # The native fairseq2/OmniASR adapter is intentionally not emulated here.
-    # Until it is implemented, both profiles expose an explicit unavailable state.
+    if settings.asr_backend == "lmaana":
+        from lmaana_assistant.asr.lmaana import LmaanaASR
+
+        return LmaanaASR(settings)
     return UnavailableASR(settings)

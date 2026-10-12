@@ -36,6 +36,18 @@ Ubuntu-24.04 WSL environment does not yet contain `torch`, `fairseq2`,
 
 The remaining adapter work is deliberately runtime-specific:
 
+When the runtime is installed in WSL, select the local checkpoint without copying
+it into the repository:
+
+```bash
+export LMAANA_ASR_BACKEND=lmaana
+export LMAANA_ASR_MODEL_DIR=/mnt/d/darija_asr_data/models/lmaana-2.4
+```
+
+The adapter loads the 3B model lazily on the first transcription request and
+requires CUDA. This keeps API startup light and makes missing runtime/model state
+visible through `asr_ready: false` and a `503` transcription response.
+
 1. Confirm existing Hugging Face access. The model page currently requires agreeing to share contact information before files can be accessed. If access has not been granted, the user must accept the model's terms in their own account. Never put a token in Git, logs, or the chat.
 2. Download only the selected revision's required files and verify the published checkpoint checksum.
 3. Establish a compatible fairseq2/OmniASR environment from the published recipe, then smoke-test one short clip. Native Windows compatibility is not yet verified; an isolated Linux/WSL runtime may be needed.
