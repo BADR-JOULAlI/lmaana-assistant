@@ -1,5 +1,5 @@
-from lmaana_assistant.asr.lmaana import LmaanaASR
 from lmaana_assistant.asr.base import TranscriptResult
+from lmaana_assistant.asr.lmaana import LmaanaASR
 from lmaana_assistant.config import Settings
 
 
