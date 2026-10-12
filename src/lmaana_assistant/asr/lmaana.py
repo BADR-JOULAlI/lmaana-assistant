@@ -42,15 +42,20 @@ class LmaanaASR:
     def _runtime_available(self) -> bool:
         return all(find_spec(name) is not None for name in ("torch", "fairseq2", "omnilingual_asr"))
 
+    @property
+    def reason(self) -> str | None:
+        if self.model_dir is None:
+            return "LMAANA_ASR_MODEL_DIR is not configured."
+        if self.checkpoint is None or not self.checkpoint.is_file():
+            return "The Lmaana checkpoint file is missing."
+        if self.tokenizer is None or not self.tokenizer.is_file():
+            return "The Lmaana tokenizer file is missing."
+        if not self._runtime_available():
+            return "Install torch, fairseq2 and omnilingual_asr in the selected runtime."
+        return None
+
     def ready(self) -> bool:
-        return bool(
-            self.model_dir
-            and self.checkpoint
-            and self.checkpoint.is_file()
-            and self.tokenizer
-            and self.tokenizer.is_file()
-            and self._runtime_available()
-        )
+        return self.reason is None
 
     def _load(self):
         if self._pipeline is not None:

@@ -98,6 +98,7 @@ def create_app(settings: Settings | None = None, *, embedder=None, generator=Non
             "asr_backend": config.asr_backend,
             "asr_model": app.state.asr.model,
             "asr_ready": app.state.asr.ready(),
+            "asr_reason": getattr(app.state.asr, "reason", None),
             "sources": sources,
             "verified_source_count": sum(s["verification_status"] == "verified" for s in sources),
         }

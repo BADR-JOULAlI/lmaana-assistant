@@ -16,6 +16,10 @@ class UnavailableASR:
     def ready(self) -> bool:
         return False
 
+    @property
+    def reason(self) -> str:
+        return "The native Lmaana ASR runtime is not installed."
+
     def transcribe(self, audio: AudioSample) -> TranscriptResult:
         raise DependencyUnavailable(
             "The native Lmaana ASR runtime is not installed; transcription is unavailable."
