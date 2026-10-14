@@ -299,6 +299,19 @@ corpora, concurrent requests, and model timeouts. They run without model weights
 CI checks Python 3.11/3.12 on Linux and Windows.
 These are software behavior checks, not a certification of administrative correctness.
 
+### Voice boundary status
+
+The repository now exposes a validated `POST /v1/transcriptions` boundary and a
+lazy native Lmaana 2.4 adapter. Run `lmaana doctor` to see whether the local
+checkpoint, runtime modules and CUDA are ready. The detailed request/response
+contract is in [transcription-api.md](docs/transcription-api.md), and the local
+runtime steps are in [local-asr-runbook.md](docs/local-asr-runbook.md).
+
+The application keeps audio transcription separate from answering: the transcript
+is returned first, remains editable, and is submitted to `/v1/answers` only after
+user confirmation. Missing ASR dependencies produce a visible unavailable state;
+the application never silently changes to another ASR model.
+
 Next: install and validate the native **Lmaana 2.4** fairseq2/OmniASR runtime, then connect the
 validated provider to the existing transcription endpoint and add microphone input,
 then compare against Whisper on held-out audio. Measure WER/CER, retrieval Recall@K/MRR,
