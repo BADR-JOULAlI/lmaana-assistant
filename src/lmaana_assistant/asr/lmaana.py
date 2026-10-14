@@ -42,6 +42,13 @@ class LmaanaASR:
     def _runtime_available(self) -> bool:
         return all(find_spec(name) is not None for name in ("torch", "fairseq2", "omnilingual_asr"))
 
+    def _cuda_available(self) -> bool:
+        try:
+            import torch
+        except ImportError:
+            return False
+        return bool(torch.cuda.is_available())
+
     @property
     def reason(self) -> str | None:
         if self.model_dir is None:
@@ -52,6 +59,8 @@ class LmaanaASR:
             return "The Lmaana tokenizer file is missing."
         if not self._runtime_available():
             return "Install torch, fairseq2 and omnilingual_asr in the selected runtime."
+        if not self._cuda_available():
+            return "CUDA is unavailable for the Lmaana 2.4 3B profile."
         return None
 
     def ready(self) -> bool:
