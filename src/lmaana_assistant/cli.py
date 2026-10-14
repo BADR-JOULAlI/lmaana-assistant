@@ -90,13 +90,23 @@ def main() -> int:
             else:
                 print(report)
         else:
+            from lmaana_assistant.asr.factory import make_asr
+
+            asr = make_asr(settings)
             print(
                 json.dumps(
                     {
                         "python": sys.version.split()[0],
                         "planned_asr_model": settings.asr_model,
                         "planned_asr_revision": settings.asr_revision,
-                        "transcription_available": False,
+                        "asr_backend": settings.asr_backend,
+                        "asr_model_dir": (
+                            str(settings.asr_model_dir.resolve())
+                            if settings.asr_model_dir
+                            else None
+                        ),
+                        "transcription_available": asr.ready(),
+                        "asr_reason": getattr(asr, "reason", None),
                         "embedding_backend": settings.embedding_backend,
                         "generator_backend": settings.generator_backend,
                         "active_corpus_exists": settings.active_path.exists(),
@@ -105,6 +115,7 @@ def main() -> int:
                     indent=2,
                 )
             )
+            asr.close()
     except (OSError, ValueError, RuntimeError, httpx.HTTPError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
