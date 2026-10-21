@@ -312,9 +312,13 @@ is returned first, remains editable, and is submitted to `/v1/answers` only afte
 user confirmation. Missing ASR dependencies produce a visible unavailable state;
 the application never silently changes to another ASR model.
 
-Next: install and validate the native **Lmaana 2.4** fairseq2/OmniASR runtime, then connect the
-validated provider to the existing transcription endpoint and add microphone input,
-then compare against Whisper on held-out audio. Measure WER/CER, retrieval Recall@K/MRR,
+The native **Lmaana 2.4** adapter has been smoke-tested in Ubuntu-24.04 with the
+existing `.venv-omni` environment and local checkpoint. The `lmaana-http` profile
+connects the Windows API to a preloaded WSL worker, keeping startup status visible.
+Streamlit accepts microphone input or uploaded WAV files and lets users edit the
+transcript before submitting a question. See the local runtime runbook above.
+
+Next: compare against Whisper on held-out audio. Measure WER/CER, retrieval Recall@K/MRR,
 claim support, and end-to-end latency before making quality claims.
 
 ## Offline evaluation

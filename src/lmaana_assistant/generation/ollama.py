@@ -77,6 +77,11 @@ class OllamaGenerator:
             selected.pop()
         if not selected:
             raise InvalidGeneration("The question and evidence exceed the configured context.")
+        device_options = (
+            {"num_gpu": self.settings.ollama_num_gpu}
+            if self.settings.ollama_num_gpu is not None
+            else {}
+        )
         try:
             response = self.client.post(
                 "/api/chat",
@@ -90,6 +95,7 @@ class OllamaGenerator:
                     "shift": False,
                     "keep_alive": "5m",
                     "options": {
+                        **device_options,
                         "num_ctx": self.settings.context_tokens,
                         "num_predict": self.settings.max_output_tokens,
                         "temperature": 0.7,

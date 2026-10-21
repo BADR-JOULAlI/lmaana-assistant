@@ -5,6 +5,10 @@ from lmaana_assistant.config import Settings
 
 
 def make_asr(settings: Settings):
+    if settings.asr_backend == "lmaana-http":
+        from lmaana_assistant.asr.http import LocalLmaanaASR
+
+        return LocalLmaanaASR(settings)
     if settings.asr_backend == "lmaana":
         from lmaana_assistant.asr.lmaana import LmaanaASR
 

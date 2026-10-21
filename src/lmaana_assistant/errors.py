@@ -9,6 +9,10 @@ class InferenceTimeout(RuntimeError):
     pass
 
 
+class InferenceBusy(RuntimeError):
+    pass
+
+
 class InvalidGeneration(ValueError):
     pass
 

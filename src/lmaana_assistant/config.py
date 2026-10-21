@@ -14,7 +14,8 @@ class Settings(BaseSettings):
     app_name: str = "Lmaana Assistant"
     data_dir: Path = Path("data")
     # Reserved for the next voice milestone. The current application is text-only.
-    asr_backend: Literal["unavailable", "lmaana"] = "unavailable"
+    asr_backend: Literal["unavailable", "lmaana", "lmaana-http"] = "unavailable"
+    asr_worker_url: str = "http://127.0.0.1:8001"
     asr_model: Literal["Lmaana/lmaana-2.4"] = "Lmaana/lmaana-2.4"
     asr_revision: str = "537c5e5a0e2b1015b5ad10798be54f66bc3a2d7a"
     # Local path is intentionally opt-in and machine-specific; it is never committed.
@@ -30,6 +31,7 @@ class Settings(BaseSettings):
     llm_model: str = "lmaana-qwen3"
     ollama_url: str = "http://127.0.0.1:11434"
     ollama_model: str = Field(default="qwen3:4b", min_length=1)
+    ollama_num_gpu: int | None = Field(default=None, ge=0)
     ollama_model_digest: str = Field(default="", pattern=r"^(?:[0-9a-f]{64})?$")
     context_tokens: int = Field(default=4096, ge=1024, le=32768)
     max_output_tokens: int = Field(default=512, ge=64, le=2048)
@@ -40,6 +42,17 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_profile(self):
+        worker_url = urlsplit(self.asr_worker_url)
+        if (
+            worker_url.scheme != "http"
+            or worker_url.hostname not in {"127.0.0.1", "localhost", "::1"}
+            or worker_url.username is not None
+            or worker_url.password is not None
+            or worker_url.path not in {"", "/"}
+            or worker_url.query
+            or worker_url.fragment
+        ):
+            raise ValueError("The ASR worker must use an HTTP loopback URL.")
         if self.max_output_tokens >= self.context_tokens:
             raise ValueError("Output budget must be smaller than the context window.")
         if self.context_chunks > self.retrieval_k:

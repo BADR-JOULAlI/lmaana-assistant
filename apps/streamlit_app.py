@@ -61,7 +61,7 @@ textarea {unicode-bidi: plaintext; font-size: 1.1rem !important;}
 
 st.title("Lmaana Assistant")
 st.html('<p class="intro" dir="rtl">سول بالدارجة، وشوف شنو كاين فالمصادر.</p>')
-st.caption("Recherche locale dans des documents marocains · Prototype texte")
+st.caption("Questions écrites ou vocales · Recherche locale dans des documents marocains")
 
 try:
     health_response = httpx.get(f"{API_URL}/health/ready", timeout=5, trust_env=False)
@@ -122,7 +122,12 @@ if health.get("asr_ready"):
         "Enregistrez une courte question en darija. La transcription reste "
         "modifiable avant la recherche."
     )
-    audio_file = st.audio_input("Enregistrer une question", key="voice_question")
+    recording_tab, upload_tab = st.tabs(["Microphone", "Fichier WAV"])
+    with recording_tab:
+        recording = st.audio_input("Enregistrer une question", key="voice_question")
+    with upload_tab:
+        uploaded = st.file_uploader("Choisir un audio WAV (30 s maximum)", type=["wav"])
+    audio_file = uploaded if uploaded is not None else recording
     if audio_file is not None and st.button("Transcrire avec Lmaana 2.4", key="transcribe_button"):
         with st.spinner("كنحوّل الصوت لنص… Transcription en cours…"):
             try:
@@ -142,6 +147,7 @@ if health.get("asr_ready"):
                     transcription = response.json()
                     st.session_state.transcription = transcription
                     st.session_state.question = transcription["text"]
+                    st.session_state.pop("answer", None)
                     st.success("Transcription prête. Relisez-la et corrigez-la si nécessaire.")
                 else:
                     messages = {
@@ -167,9 +173,12 @@ if health.get("asr_ready"):
             st.caption(" · ".join(transcription["warnings"]))
 else:
     st.info(
-        "La saisie vocale sera disponible après installation et validation du runtime natif "
-        "Lmaana 2.4."
+        "La saisie vocale est en attente du service Lmaana. "
+        "Le premier chargement peut prendre environ six minutes."
     )
+    with st.expander("État de la transcription"):
+        st.text(health.get("asr_reason") or "API inaccessible.")
+        st.button("Actualiser l’état vocal")
 
 if st.button("Essayer la question sur l’auto-entrepreneur", disabled=not health.get("ready")):
     st.session_state.question = EXAMPLE

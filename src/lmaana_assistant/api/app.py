@@ -20,7 +20,12 @@ from lmaana_assistant.contracts import (
     Source,
     TranscriptionResponse,
 )
-from lmaana_assistant.errors import DependencyUnavailable, InferenceTimeout, UnsupportedAudio
+from lmaana_assistant.errors import (
+    DependencyUnavailable,
+    InferenceBusy,
+    InferenceTimeout,
+    UnsupportedAudio,
+)
 from lmaana_assistant.generation.adapters import make_generator
 from lmaana_assistant.pipeline import AnswerPipeline
 from lmaana_assistant.retrieval.embeddings import make_embedder
@@ -113,8 +118,8 @@ def create_app(settings: Settings | None = None, *, embedder=None, generator=Non
         return JSONResponse(state, status_code=200 if state["ready"] else 503)
 
     @app.post("/v1/transcriptions", response_model=TranscriptionResponse)
-    async def transcribe(file: UploadFile = File(...)):  # noqa: B008
-        data = await file.read(MAX_AUDIO_BYTES + 1)
+    def transcribe(file: UploadFile = File(...)):  # noqa: B008
+        data = file.file.read(MAX_AUDIO_BYTES + 1)
         try:
             audio = validate_wav(data, file.filename or "audio.wav", file.content_type)
         except UnsupportedAudio as exc:
@@ -131,6 +136,8 @@ def create_app(settings: Settings | None = None, *, embedder=None, generator=Non
             )
         try:
             return app.state.asr.transcribe(audio)
+        except InferenceBusy as exc:
+            raise HTTPException(429, str(exc), headers={"Retry-After": "2"}) from exc
         except InferenceTimeout as exc:
             app.state.healthy = False
             raise HTTPException(504, str(exc)) from exc

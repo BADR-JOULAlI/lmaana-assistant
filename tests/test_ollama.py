@@ -184,6 +184,19 @@ def test_ollama_trims_whole_passages_before_request(settings, evidence):
             generator.generate(process_query("What documents?"), evidence)
 
 
+def test_ollama_can_reserve_gpu_for_the_asr_worker(settings, evidence):
+    settings.ollama_num_gpu = 0
+
+    def handler(request):
+        assert json.loads(request.content)["options"]["num_gpu"] == 0
+        return httpx.Response(200, json=response_body())
+
+    with httpx.Client(base_url="http://local", transport=httpx.MockTransport(handler)) as client:
+        assert (
+            OllamaGenerator(settings, client).generate(process_query("What documents?"), evidence)
+        ).outcome == "answered"
+
+
 @pytest.mark.parametrize(
     "url",
     [

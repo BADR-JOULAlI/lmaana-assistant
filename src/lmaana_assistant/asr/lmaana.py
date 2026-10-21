@@ -74,6 +74,10 @@ class LmaanaASR:
     def ready(self) -> bool:
         return self.reason is None
 
+    def warmup(self) -> None:
+        """Load the checkpoint before accepting interactive audio requests."""
+        self._load()
+
     def _load(self):
         if self._pipeline is not None:
             return self._pipeline, self._torch
@@ -134,7 +138,7 @@ class LmaanaASR:
 
     def transcribe(self, audio: AudioSample) -> TranscriptResult:
         started = monotonic()
-        pipeline, _ = self._load()
+        pipeline, torch = self._load()
         inference_started = monotonic()
         temporary = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
         path = Path(temporary.name)
@@ -142,7 +146,8 @@ class LmaanaASR:
             temporary.write(audio.data)
             temporary.close()
             try:
-                results = pipeline.transcribe([str(path)], batch_size=1)
+                with torch.inference_mode():
+                    results = pipeline.transcribe([str(path)], batch_size=1)
             except (OSError, RuntimeError, ValueError) as exc:
                 raise DependencyUnavailable(
                     "Lmaana inference failed for the uploaded audio."
