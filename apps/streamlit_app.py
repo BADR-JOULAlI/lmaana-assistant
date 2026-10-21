@@ -1,4 +1,4 @@
-"""A thin bilingual text interface; retrieval and inference stay in the API."""
+"""A thin bilingual text and voice interface; inference stays in the API."""
 
 import html
 import os
@@ -115,6 +115,61 @@ if health.get("sources"):
                 STATUS_LABELS.get(source.get("verification_status"), "Actualité non confirmée")
             )
         st.caption("La présence d’un document ne garantit pas qu’il réponde à toute question.")
+
+if health.get("asr_ready"):
+    st.subheader("Question vocale / سؤال بالصوت")
+    st.caption(
+        "Enregistrez une courte question en darija. La transcription reste "
+        "modifiable avant la recherche."
+    )
+    audio_file = st.audio_input("Enregistrer une question", key="voice_question")
+    if audio_file is not None and st.button("Transcrire avec Lmaana 2.4", key="transcribe_button"):
+        with st.spinner("كنحوّل الصوت لنص… Transcription en cours…"):
+            try:
+                response = httpx.post(
+                    f"{API_URL}/v1/transcriptions",
+                    files={
+                        "file": (
+                            audio_file.name or "question.wav",
+                            audio_file.getvalue(),
+                            audio_file.type or "audio/wav",
+                        )
+                    },
+                    timeout=180,
+                    trust_env=False,
+                )
+                if response.status_code == 200:
+                    transcription = response.json()
+                    st.session_state.transcription = transcription
+                    st.session_state.question = transcription["text"]
+                    st.success("Transcription prête. Relisez-la et corrigez-la si nécessaire.")
+                else:
+                    messages = {
+                        415: (
+                            "Le fichier audio doit être un WAV PCM non silencieux "
+                            "de 30 secondes maximum."
+                        ),
+                        429: "Une autre transcription est en cours. Réessayez dans un instant.",
+                        503: "Le runtime Lmaana est indisponible. Vérifiez `lmaana doctor`.",
+                        504: "La transcription a dépassé le délai configuré.",
+                    }
+                    st.error(messages.get(response.status_code, "La transcription a échoué."))
+            except (httpx.HTTPError, ValueError):
+                st.error("Impossible de joindre l’API de transcription.")
+
+    transcription = st.session_state.get("transcription")
+    if transcription:
+        st.caption(
+            f"Modèle : {transcription['model']} · durée : "
+            f"{transcription['audio_duration_ms'] / 1000:.1f} s"
+        )
+        if transcription.get("warnings"):
+            st.caption(" · ".join(transcription["warnings"]))
+else:
+    st.info(
+        "La saisie vocale sera disponible après installation et validation du runtime natif "
+        "Lmaana 2.4."
+    )
 
 if st.button("Essayer la question sur l’auto-entrepreneur", disabled=not health.get("ready")):
     st.session_state.question = EXAMPLE
@@ -296,4 +351,7 @@ else:
     st.caption("Posez une question pour afficher les extraits et leurs sources côte à côte.")
 
 st.divider()
-st.caption("Texte uniquement · L’entrée vocale avec Lmaana 2.4 n’est pas encore disponible.")
+st.caption(
+    "La question vocale est transcrite séparément, puis reste éditable avant "
+    "l’appel au pipeline RAG."
+)

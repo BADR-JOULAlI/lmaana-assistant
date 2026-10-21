@@ -1,6 +1,6 @@
 # Lmaana 2.4 integration target
 
-The project's primary ASR model is **`Lmaana/lmaana-2.4`**. Whisper-large-v3-turbo is the comparison baseline. The current prototype implements text retrieval; speech inference is the next milestone.
+The project's primary ASR model is **`Lmaana/lmaana-2.4`**. Whisper-large-v3-turbo is the comparison baseline. The repository now exposes the transcription boundary and the Streamlit voice workflow; real inference still depends on the native runtime being available on the serving machine.
 
 The model card identifies a native OmniASR CTC 3B v2 checkpoint using fairseq2, with greedy CTC decoding and a written tokenizer. It is not a Transformers `from_pretrained()` package. It was adapted using Dataset13 and corrected MoulSot; evaluation must respect its held-out splits. Access to weights is gated on Hugging Face. [Official model card](https://huggingface.co/Lmaana/lmaana-2.4).
 
@@ -53,6 +53,6 @@ visible through `asr_ready: false` and a `503` transcription response.
 3. Establish a compatible fairseq2/OmniASR environment from the published recipe, then smoke-test one short clip. Native Windows compatibility is not yet verified; an isolated Linux/WSL runtime may be needed.
 4. Implement the shared transcription contract with raw transcript, model/revision, timing, warnings, and nullable confidence. Preserve the release's tokenizer and preprocessing.
 5. Profile the ASR model alone on the 8 GB RTX 5070 Laptop GPU. A 3B model changes the memory budget: begin with Qwen generation on CPU while measuring ASR, and enable coexistence only after profiling.
-6. Expose the transcription endpoint and editable transcript in Streamlit. Add Whisper as a separately selected benchmark adapter, with no automatic substitution for Lmaana.
+6. Add Whisper as a separately selected benchmark adapter, with no automatic substitution for Lmaana. The current Streamlit UI already records audio, calls `/v1/transcriptions`, and places the editable transcript in the question field.
 
-No weights have been downloaded or executed by this implementation. Configuration and `lmaana doctor` record the selected ASR target without claiming that transcription is available.
+The pinned checkpoint is stored outside Git at `D:/darija_asr_data/models/lmaana-2.4`. Configuration and `lmaana doctor` still report transcription as unavailable until the native fairseq2/OmniASR runtime and CUDA path are validated on the serving machine.
