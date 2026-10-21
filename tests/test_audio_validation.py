@@ -26,7 +26,11 @@ def test_validate_wav_returns_audio_metadata():
     assert sample.duration_seconds == 1
 
 
-@pytest.mark.parametrize("payload", [b"not-a-wave", make_wav(silent=True), make_wav(31)])
+@pytest.mark.parametrize(
+    "payload",
+    [b"not-a-wave", make_wav(silent=True), make_wav(31)],
+    ids=["malformed", "silent", "too_long"],
+)
 def test_validate_wav_rejects_invalid_or_unsafe_audio(payload):
     with pytest.raises(UnsupportedAudio):
         validate_wav(payload, "question.wav", "audio/wav")

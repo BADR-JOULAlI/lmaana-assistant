@@ -93,6 +93,7 @@ def test_transcription_validates_audio_before_reporting_unavailable(settings, in
 @pytest.mark.parametrize(
     "payload, status",
     [(b"not-wav", 415), (wav_bytes(silent=True), 415), (wav_bytes(seconds=31), 415)],
+    ids=["malformed", "silent", "too_long"],
 )
 def test_transcription_rejects_invalid_audio(settings, indexed, payload, status):
     with TestClient(create_app(settings)) as client:
