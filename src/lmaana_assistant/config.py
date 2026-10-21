@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     asr_revision: str = "537c5e5a0e2b1015b5ad10798be54f66bc3a2d7a"
     # Local path is intentionally opt-in and machine-specific; it is never committed.
     asr_model_dir: Path | None = None
+    # Optional local source tree that registers the native model architecture.
+    asr_runtime_source: Path | None = None
     embedding_backend: Literal["lexical", "qwen"] = "lexical"
     embedding_model: str = "Qwen/Qwen3-Embedding-0.6B"
     embedding_revision: str = ""

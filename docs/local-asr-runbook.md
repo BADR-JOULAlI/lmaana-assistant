@@ -24,6 +24,7 @@ Set the ignored local environment values:
 ```bash
 export LMAANA_ASR_BACKEND=lmaana
 export LMAANA_ASR_MODEL_DIR=/mnt/d/darija_asr_data/models/lmaana-2.4
+export LMAANA_ASR_RUNTIME_SOURCE=/mnt/d/darija_asr_data/work/omnilingual-asr-v2/src
 ```
 
 Start the API and inspect readiness:

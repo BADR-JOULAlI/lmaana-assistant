@@ -33,10 +33,13 @@ Successful responses contain:
   "confidence": null,
   "segments": [],
   "warnings": ["Greedy CTC decoding; confidence is not calibrated."],
-  "timings_ms": {"total": 1234.5}
+  "timings_ms": {"total": 1234.5, "load": 900.0, "inference": 334.5}
 }
 ```
 
 The API does not persist uploaded audio. The adapter writes one temporary WAV for
 the native runtime and removes it after the inference attempt. The raw transcript
-must remain editable before it is submitted to the retrieval pipeline.
+must remain editable before it is submitted to the retrieval pipeline. The first
+request may include a several-minute model load; the configured timeout applies
+to audio inference after the model is ready, while load and inference timings are
+reported separately.

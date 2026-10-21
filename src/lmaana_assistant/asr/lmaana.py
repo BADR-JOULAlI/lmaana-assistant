@@ -5,6 +5,7 @@ load a 3B checkpoint, and readiness must remain false when the model or runtime
 is missing. The adapter follows the local model's greedy CTC inference path.
 """
 
+import sys
 import tempfile
 from importlib.util import find_spec
 from pathlib import Path
@@ -18,6 +19,7 @@ from lmaana_assistant.errors import DependencyUnavailable, InferenceTimeout
 
 class LmaanaASR:
     name = "lmaana-2.4-native-omnilingual-asr"
+    target_vocab_size = 10288
 
     def __init__(self, settings: Settings):
         self.settings = settings
@@ -26,6 +28,11 @@ class LmaanaASR:
         self.model_dir = settings.asr_model_dir
         self._pipeline = None
         self._torch = None
+
+    def _prepare_runtime_source(self) -> None:
+        source = self.settings.asr_runtime_source
+        if source and source.is_dir() and str(source) not in sys.path:
+            sys.path.insert(0, str(source))
 
     @property
     def checkpoint(self) -> Path | None:
@@ -40,6 +47,7 @@ class LmaanaASR:
         )
 
     def _runtime_available(self) -> bool:
+        self._prepare_runtime_source()
         return all(find_spec(name) is not None for name in ("torch", "fairseq2", "omnilingual_asr"))
 
     def _cuda_available(self) -> bool:
@@ -69,6 +77,7 @@ class LmaanaASR:
     def _load(self):
         if self._pipeline is not None:
             return self._pipeline, self._torch
+        self._prepare_runtime_source()
         if not self.ready():
             raise DependencyUnavailable(
                 "Lmaana 2.4 needs the local checkpoint, tokenizer and native fairseq2 runtime."
@@ -98,10 +107,15 @@ class LmaanaASR:
                     "tokenizer": self.tokenizer.as_uri(),
                 },
             )
-            get_wav2vec2_asr_model_hub().get_model_config(model_card)
+            model_config = get_wav2vec2_asr_model_hub().get_model_config(model_card)
+            model_config.target_vocab_size = self.target_vocab_size
             tokenizer = load_tokenizer(tokenizer_card)
             model = load_model(
-                model_card, device=torch.device("cuda"), dtype=torch.bfloat16, mmap=True
+                model_card,
+                config=model_config,
+                device=torch.device("cuda"),
+                dtype=torch.bfloat16,
+                mmap=True,
             )
             model.eval()
             self._pipeline = ASRInferencePipeline(
@@ -121,6 +135,7 @@ class LmaanaASR:
     def transcribe(self, audio: AudioSample) -> TranscriptResult:
         started = monotonic()
         pipeline, _ = self._load()
+        inference_started = monotonic()
         temporary = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
         path = Path(temporary.name)
         try:
@@ -136,9 +151,10 @@ class LmaanaASR:
             path.unlink(missing_ok=True)
         if len(results) != 1 or not isinstance(results[0], str) or not results[0].strip():
             raise DependencyUnavailable("Lmaana returned an empty or invalid transcript.")
-        elapsed = (monotonic() - started) * 1000
-        if elapsed > self.settings.timeout_seconds * 1000:
+        inference_elapsed = (monotonic() - inference_started) * 1000
+        if inference_elapsed > self.settings.timeout_seconds * 1000:
             raise InferenceTimeout("Lmaana transcription exceeded the configured timeout.")
+        total_elapsed = (monotonic() - started) * 1000
         return TranscriptResult(
             text=results[0].strip(),
             model=self.model,
@@ -146,7 +162,11 @@ class LmaanaASR:
             audio_duration_ms=round(audio.duration_seconds * 1000),
             confidence=None,
             warnings=["Greedy CTC decoding; confidence is not calibrated."],
-            timings_ms={"total": round(elapsed, 2)},
+            timings_ms={
+                "total": round(total_elapsed, 2),
+                "load": round((inference_started - started) * 1000, 2),
+                "inference": round(inference_elapsed, 2),
+            },
         )
 
     def close(self) -> None:
