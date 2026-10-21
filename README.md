@@ -283,21 +283,21 @@ Do not paste Hugging Face tokens into configuration committed to Git.
 ## Layout and architecture
 
 ```text
-apps/streamlit_app.py             HTTP-only text interface
+apps/streamlit_app.py             HTTP-only text and voice interface
 src/lmaana_assistant/
   api/                           FastAPI lifecycle and routes
   ingestion/                     source fetching, extraction, corpus activation
   retrieval/                     lexical/Qwen embeddings and Qdrant storage
   generation/                    excerpt/llama.cpp/Ollama adapters and validation
   evaluation/                    offline metrics and annotation validation
-  asr/                           reserved for the Lmaana 2.4 milestone
+  asr/                           native Lmaana 2.4 and preloaded WSL worker adapters
   contracts.py                   typed shared records
   normalization.py               Darija rules and search aliases
   language.py                    detection, reply-language policy and localized messages
   pipeline.py                    retrieval-to-response orchestration
   config.py                      explicit environment-driven profiles
-  cli.py                         ingest, serve, ask, evaluate, doctor
-configs/                         reviewed-source manifest and synthetic metric examples
+  cli.py                         ingest, serve, ask, evaluate, benchmark-retrieval, doctor
+configs/                         source manifests and authored evaluation fixtures
 tests/                           offline unit and integration tests
 docs/                            architecture and model integration notes
 data/                            generated local corpus/index files (ignored)
@@ -308,6 +308,17 @@ data/                            generated local corpus/index files (ignored)
 The [architecture design](docs/architecture.md) describes the full target and current differences.
 Tests cover ingestion failures, storage locks, index compatibility, citation rejection, empty
 corpora, concurrent requests, and model timeouts. They run without model weights or network access.
+
+For a measured multilingual retrieval diagnostic without touching the active index:
+
+```powershell
+.\.venv\Scripts\lmaana.exe benchmark-retrieval configs/retrieval-benchmark.example.json --output outputs/retrieval-lexical-expanded-v1.json
+```
+
+The [evaluation protocol](docs/evaluation.md#running-passage-retrieval-instead-of-supplying-rankings)
+explains raw/expanded comparisons, per-language Recall@K/MRR, negative queries and
+the optional pinned, local-cache-only Qwen profile. The fictional software fixture
+is a development diagnostic, not an administrative or end-to-end quality benchmark.
 CI checks Python 3.11/3.12 on Linux and Windows.
 These are software behavior checks, not a certification of administrative correctness.
 

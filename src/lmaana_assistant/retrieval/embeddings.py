@@ -1,4 +1,4 @@
-"""An explicit lexical development baseline and the planned Qwen adapter."""
+"""An explicit lexical development baseline and an opt-in Qwen adapter."""
 
 import hashlib
 import math
@@ -49,12 +49,21 @@ class QwenEmbedder:
             from sentence_transformers import SentenceTransformer
         except ImportError as exc:
             raise DependencyUnavailable("Install the models extra to use Qwen embeddings.") from exc
-        self.model = SentenceTransformer(
-            settings.embedding_model,
-            revision=settings.embedding_revision,
-            device=settings.embedding_device,
-            trust_remote_code=False,
-        )
+        try:
+            self.model = SentenceTransformer(
+                settings.embedding_model,
+                revision=settings.embedding_revision,
+                device=settings.embedding_device,
+                trust_remote_code=False,
+                local_files_only=settings.embedding_local_files_only,
+            )
+        except OSError as exc:
+            hint = (
+                "The pinned checkpoint must be cached locally."
+                if settings.embedding_local_files_only
+                else "Check the pinned checkpoint and model cache."
+            )
+            raise DependencyUnavailable(f"Qwen embeddings could not load. {hint}") from exc
         self.fingerprint = (
             f"{settings.embedding_model}@{settings.embedding_revision}:1024:cosine:instruction-v1"
         )

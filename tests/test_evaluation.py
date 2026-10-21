@@ -223,6 +223,7 @@ def test_cli_evaluates_without_network_or_model_loading(tmp_path, monkeypatch, c
         encoding="utf-8",
     )
     monkeypatch.setattr("sys.argv", ["lmaana", "evaluate", str(dataset)])
+    monkeypatch.setenv("LMAANA_ASR_MODEL", "invalid-serving-profile")
     monkeypatch.setattr("httpx.Client", lambda *args, **kwargs: pytest.fail("Network used"))
     monkeypatch.setattr(
         "lmaana_assistant.cli.make_embedder", lambda *args: pytest.fail("Model used")

@@ -68,6 +68,95 @@ nonempty retrieved results. Null recall for a negative query must not be treated
 as zero or one. Ground-truth relevance should distinguish topical similarity from
 usable evidence; keep the annotation convention fixed across experiments.
 
+### Running passage retrieval instead of supplying rankings
+
+`lmaana benchmark-retrieval` encodes a supplied, pre-segmented passage set, runs
+each written question, and feeds the measured rankings into the same offline
+metric functions. It never opens Qdrant, reads the active corpus, calls the API,
+loads ASR, or generates answers. Graphify dependency tracing helped keep this
+experiment separate from `AnswerPipeline` and ingestion.
+
+```powershell
+.\.venv\Scripts\lmaana.exe benchmark-retrieval configs/retrieval-benchmark.example.json --query-mode expanded --output outputs/retrieval-lexical-expanded-v1.json
+.\.venv\Scripts\lmaana.exe benchmark-retrieval configs/retrieval-benchmark.example.json --query-mode raw --output outputs/retrieval-lexical-raw-v1.json
+```
+
+The dataset declares `passages` (`id`, `text`), `questions` (`id`, `question`,
+author-assigned `language`, `relevant_ids`), `retrieval_k`, `dataset_id`, and
+nonblank experiment `notes`. An empty `relevant_ids` list is an explicit negative.
+Unknown references, duplicates and blank fields fail validation. The output
+cannot overwrite the dataset, including an existing link to the input file.
+
+The committed example has eight fictional **software** passages, all French,
+and forty questions: seven positives and one negative for each of `fr`, `ar`,
+`ary`, `ary-Latn`, and `en`. Translated/paraphrased questions share scenarios;
+they are development probes, not independent held-out samples. No administrative
+requirements or real-model outputs have been invented for this fixture.
+
+Reports retain question text, expected IDs, query expansion, intent and detected
+language, ranked IDs with cosine scores, and the results retained by `--min-score`.
+The dataset SHA-256 is over canonical validated JSON, not the source file's layout.
+Record the embedding fingerprint, query-rules version, query mode, cutoffs and
+threshold when comparing runs. Exact score ties sort by passage ID. Zero vectors
+are not arbitrarily ranked; malformed or nonfinite embeddings fail the run.
+
+`retrieval` reports thresholded metrics; `unfiltered_retrieval` reports ranking
+quality before the threshold. Both are also stratified by **annotated**, not
+automatically detected, language. Negative queries have a separate denominator.
+The test does not apply topic/currentness filters or answerability guards:
+a nonempty negative ranking is a retrieval candidate, **not a wrong displayed
+answer**. Those protections are tested separately in the pipeline tests.
+
+Latency is a single sequential measurement, with document encoding and CLI model
+loading reported separately. There is no warmup/repetition protocol; do not use
+this small diagnostic as a production throughput or cold-start benchmark.
+
+### Lexical development baseline
+
+Measured with `lexical-sha256-4096-v3`, `darija-rules-v5`, cosine threshold `0.18`,
+and the committed fixture hash
+`f8f25f3c04cf1a3eb2d4a8281b752038c44c82090a17044b9720f4baf9f5374d`:
+
+| Query input | Positive top-1 hits | Positive Recall@1 | Negative queries with a candidate |
+|---|---:|---:|---:|
+| Raw question | 15 / 35 | 42.9% | 0 / 5 |
+| Expanded question | 17 / 35 | 48.6% | 3 / 5 |
+
+For the expanded run, thresholded top-1 hits are French 7/7, Arabic 1/7, Darija
+0/7, Arabizi 6/7, and English 3/7. This fixture intentionally exposes cross-language
+vocabulary gaps. The result does **not** measure real Moroccan-service recall,
+ASR accuracy, response correctness, or dialect fluency. Do not tune the final
+threshold on these probes and then report the same probes as held-out performance.
+
+### Comparing the optional Qwen profile
+
+The Qwen adapter uses the documented instruction format from the
+[official model card](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B).
+Install the optional models extra, supply a full 40-character checkpoint commit,
+and keep the device on CPU for an experiment that should not consume the ASR GPU:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e ".[models]"
+# Replace FULL_40_HEX_COMMIT with the checkpoint revision being evaluated.
+.\.venv\Scripts\lmaana.exe benchmark-retrieval configs/retrieval-benchmark.example.json --backend qwen --revision FULL_40_HEX_COMMIT --device cpu --query-mode expanded --output outputs/retrieval-qwen-expanded-v1.json
+```
+
+This command is **local-cache-only by default**, using Sentence Transformers'
+[`local_files_only` option](https://www.sbert.net/docs/package_reference/sentence_transformer/model.html).
+Add `--allow-download` only when intentionally downloading the pinned checkpoint.
+Missing dependencies or a missing cached model fail explicitly; there is no
+silent lexical fallback. The application has a separate opt-in
+`LMAANA_EMBEDDING_LOCAL_FILES_ONLY=true` setting. Neither command changes `.env`
+or activates a new serving index.
+
+No actual Qwen benchmark result is supplied with this baseline: adapter tests use
+controlled vectors and loader stubs. Run both query modes on the same dataset
+revision, then use a separately reviewed Moroccan-document development/held-out
+set before selecting a model or recalibrating thresholds. A shared numeric
+threshold is an experimental control, not proof that scores from different
+embedders are calibrated. Changing the serving embedding profile still requires
+re-ingestion and restart; never replace the active index with this software fixture.
+
 ## Responses and latency
 
 Outcome agreement, generated-answer coverage, desired-answer outcome recall,

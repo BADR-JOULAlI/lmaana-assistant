@@ -3,8 +3,10 @@
 import argparse
 import json
 import logging
+import math
 import sys
 from pathlib import Path
+from time import perf_counter
 
 import httpx
 
@@ -30,10 +32,29 @@ def main() -> int:
     evaluation = commands.add_parser("evaluate", help="Evaluate annotated outputs offline.")
     evaluation.add_argument("dataset", type=Path)
     evaluation.add_argument("--output", type=Path, help="Save the JSON report instead of stdout.")
+    retrieval = commands.add_parser(
+        "benchmark-retrieval", help="Rank supplied passages without opening the active index."
+    )
+    retrieval.add_argument("dataset", type=Path)
+    retrieval.add_argument("--output", type=Path)
+    retrieval.add_argument("--backend", choices=["lexical", "qwen"], default="lexical")
+    retrieval.add_argument("--revision", default="", help="Full Qwen checkpoint commit hash.")
+    retrieval.add_argument("--device", default="cpu")
+    retrieval.add_argument("--min-score", type=float, default=0.18)
+    retrieval.add_argument("--query-mode", choices=["raw", "expanded"], default="expanded")
+    retrieval.add_argument(
+        "--allow-download", action="store_true", help="Allow downloading the pinned Qwen model."
+    )
     commands.add_parser("doctor", help="Print profile and corpus status without loading models.")
     args = parser.parse_args()
     try:
-        settings = Settings()
+        # Offline tools must not depend on a machine's serving/ASR configuration.
+        settings = None if args.command in {"evaluate", "benchmark-retrieval"} else Settings()
+        if args.command in {"evaluate", "benchmark-retrieval"} and args.output:
+            if args.output.resolve() == args.dataset.resolve() or (
+                args.output.exists() and args.output.samefile(args.dataset)
+            ):
+                raise ValueError("The report path must not overwrite the input dataset.")
         if args.command == "ingest":
             result = ingest(args.manifest, settings, make_embedder(settings))
             print(
@@ -70,19 +91,57 @@ def main() -> int:
             )
             response.raise_for_status()
             print(json.dumps(response.json(), ensure_ascii=False, indent=2))
-        elif args.command == "evaluate":
+        elif args.command in {"evaluate", "benchmark-retrieval"}:
             from lmaana_assistant.evaluation.dataset import EvaluationDataset
             from lmaana_assistant.evaluation.runner import evaluate
 
-            if args.output and (
-                args.output.resolve() == args.dataset.resolve()
-                or (args.output.exists() and args.output.samefile(args.dataset))
-            ):
-                raise ValueError("The report path must not overwrite the input dataset.")
-            dataset = EvaluationDataset.model_validate_json(
-                args.dataset.read_text(encoding="utf-8")
-            )
-            report = json.dumps(evaluate(dataset), ensure_ascii=False, indent=2, allow_nan=False)
+            if args.command == "evaluate":
+                dataset = EvaluationDataset.model_validate_json(
+                    args.dataset.read_text(encoding="utf-8")
+                )
+                result = evaluate(dataset)
+            else:
+                from lmaana_assistant.evaluation.retrieval import (
+                    RetrievalBenchmark,
+                    benchmark_retrieval,
+                )
+                from lmaana_assistant.retrieval.embeddings import LexicalEmbedder
+
+                dataset = RetrievalBenchmark.model_validate_json(
+                    args.dataset.read_text(encoding="utf-8")
+                )
+                if args.backend == "lexical" and (args.revision or args.allow_download):
+                    raise ValueError("Revision/download options apply only to the Qwen backend.")
+                if not math.isfinite(args.min_score) or not 0 <= args.min_score <= 1:
+                    raise ValueError(
+                        "The cosine threshold must be finite and between zero and one."
+                    )
+                started = perf_counter()
+                embedder = (
+                    LexicalEmbedder()
+                    if args.backend == "lexical"
+                    else make_embedder(
+                        Settings(
+                            _env_file=None,
+                            embedding_backend="qwen",
+                            embedding_revision=args.revision,
+                            embedding_device=args.device,
+                            embedding_local_files_only=not args.allow_download,
+                            asr_backend="unavailable",
+                            generator_backend="excerpt",
+                        )
+                    )
+                )
+                model_load_ms = (perf_counter() - started) * 1000
+                result = benchmark_retrieval(
+                    dataset, embedder, min_score=args.min_score, query_mode=args.query_mode
+                )
+                result["model_load_ms"] = model_load_ms
+                result["model_download_allowed"] = args.allow_download
+                result["embedding_backend"] = args.backend
+                result["requested_device"] = args.device if args.backend == "qwen" else "cpu"
+                result["python"] = sys.version.split()[0]
+            report = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False)
             if args.output:
                 args.output.parent.mkdir(parents=True, exist_ok=True)
                 args.output.write_text(report + "\n", encoding="utf-8")

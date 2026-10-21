@@ -13,7 +13,7 @@ class Settings(BaseSettings):
 
     app_name: str = "Lmaana Assistant"
     data_dir: Path = Path("data")
-    # Reserved for the next voice milestone. The current application is text-only.
+    # Voice remains opt-in; unavailable mode never attempts model loading.
     asr_backend: Literal["unavailable", "lmaana", "lmaana-http"] = "unavailable"
     asr_worker_url: str = "http://127.0.0.1:8001"
     asr_model: Literal["Lmaana/lmaana-2.4"] = "Lmaana/lmaana-2.4"
@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     embedding_model: str = "Qwen/Qwen3-Embedding-0.6B"
     embedding_revision: str = ""
     embedding_device: str = "cpu"
+    embedding_local_files_only: bool = False
     generator_backend: Literal["excerpt", "llamacpp", "ollama"] = "excerpt"
     llm_url: str = "http://127.0.0.1:8080"
     llm_model: str = "lmaana-qwen3"
