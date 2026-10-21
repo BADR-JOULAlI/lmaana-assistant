@@ -23,7 +23,7 @@ def test_arabic_contracted_topic_and_darija_variants():
     result = process_query("الوثايق المطلوبة للمقاول الذاتي؟")
     assert "auto entrepreneur" in result.search_text
     assert result.intent == "required_documents"
-    assert result.version == "darija-rules-v4"
+    assert result.version == "darija-rules-v5"
 
 
 def test_duration_question_is_not_mistaken_for_a_fee():
@@ -81,6 +81,27 @@ def test_invalid_citation_retried_once_then_withheld(settings, indexed):
 
 def test_embedding_mismatch_fails_before_querying(settings, indexed):
     indexed["embedding"] = "some-other-embedding"
+    settings.active_path.write_text(json.dumps(indexed))
+    with pytest.raises(DependencyUnavailable, match="differ"):
+        AnswerPipeline(settings, LexicalEmbedder(), ExcerptGenerator())
+
+
+def test_previous_query_rules_keep_document_index_compatible(settings, indexed):
+    indexed["query_rules"] = "darija-rules-v4"
+    settings.active_path.write_text(json.dumps(indexed))
+    pipeline = AnswerPipeline(settings, LexicalEmbedder(), ExcerptGenerator())
+    try:
+        result = pipeline.answer("Quels documents pour inscrire le projet ?")
+        assert result.outcome == "source_excerpts"
+        assert result.query.version == "darija-rules-v5"
+        assert result.corpus_release == indexed["release"]
+    finally:
+        pipeline.close()
+
+
+@pytest.mark.parametrize("version", ["darija-rules-v3", "future-version", None])
+def test_other_query_index_versions_still_fail_closed(settings, indexed, version):
+    indexed["query_rules"] = version
     settings.active_path.write_text(json.dumps(indexed))
     with pytest.raises(DependencyUnavailable, match="differ"):
         AnswerPipeline(settings, LexicalEmbedder(), ExcerptGenerator())

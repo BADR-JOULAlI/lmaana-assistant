@@ -7,6 +7,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from lmaana_assistant.api.app import create_app
+from lmaana_assistant.contracts import QUERY_RULES_VERSION
 from lmaana_assistant.errors import InferenceTimeout
 from lmaana_assistant.generation.adapters import ExcerptGenerator
 
@@ -36,6 +37,8 @@ def test_api_returns_citations_and_validates_input(settings, indexed):
         assert health["sources"][0]["title"] == "Lmaana test guide"
         assert health["sources"][0]["verification_status"] == "verified"
         assert health["verified_source_count"] == 1
+        assert health["query_rules"] == QUERY_RULES_VERSION
+        assert health["corpus_query_rules"] == indexed["query_rules"]
         response = client.post("/v1/answers", json={"question": "inscrire projet documentation"})
         assert response.status_code == 200
         assert response.json()["citations"]

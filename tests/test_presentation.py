@@ -1,6 +1,10 @@
 from datetime import date
 
-from lmaana_assistant.contracts import LANGUAGE_POLICY_VERSION, SOURCE_POLICY_VERSION
+from lmaana_assistant.contracts import (
+    LANGUAGE_POLICY_VERSION,
+    QUERY_RULES_VERSION,
+    SOURCE_POLICY_VERSION,
+)
 from lmaana_assistant.presentation import can_display_answer, paragraphs_html
 
 
@@ -31,12 +35,14 @@ def test_cached_answer_is_hidden_on_upgrade_corpus_change_or_review_expiry():
         "source_policy": SOURCE_POLICY_VERSION,
         "corpus_release": "test",
         "language_policy": LANGUAGE_POLICY_VERSION,
+        "query_rules": QUERY_RULES_VERSION,
         "generator": "excerpt",
     }
     answer = {
         "source_policy": SOURCE_POLICY_VERSION,
         "corpus_release": "test",
         "language_policy": LANGUAGE_POLICY_VERSION,
+        "query": {"version": QUERY_RULES_VERSION},
         "generator": "excerpt",
         "citations": [
             {
@@ -53,3 +59,6 @@ def test_cached_answer_is_hidden_on_upgrade_corpus_change_or_review_expiry():
     assert not can_display_answer({**answer, "source_policy": "old"}, health, date(2026, 10, 3))
     assert not can_display_answer({**answer, "language_policy": "old"}, health, date(2026, 10, 3))
     assert not can_display_answer(answer, {**health, "generator": "llamacpp"}, date(2026, 10, 3))
+    for query in (None, {}, {"version": "darija-rules-v4"}):
+        assert not can_display_answer({**answer, "query": query}, health, date(2026, 10, 3))
+    assert not can_display_answer(answer, {**health, "query_rules": "old"}, date(2026, 10, 3))

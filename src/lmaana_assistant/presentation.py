@@ -4,7 +4,11 @@ import html
 import re
 from datetime import date
 
-from lmaana_assistant.contracts import LANGUAGE_POLICY_VERSION, SOURCE_POLICY_VERSION
+from lmaana_assistant.contracts import (
+    LANGUAGE_POLICY_VERSION,
+    QUERY_RULES_VERSION,
+    SOURCE_POLICY_VERSION,
+)
 from lmaana_assistant.generation.excerpts import script_direction
 
 
@@ -18,6 +22,8 @@ def can_display_answer(answer: dict, health: dict, today: date) -> bool:
         == health.get("language_policy")
         == LANGUAGE_POLICY_VERSION
         and answer.get("generator") == health.get("generator")
+        and isinstance(answer.get("query"), dict)
+        and answer["query"].get("version") == health.get("query_rules") == QUERY_RULES_VERSION
     ):
         return False
     try:

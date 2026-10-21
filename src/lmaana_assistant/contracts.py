@@ -5,7 +5,10 @@ from typing import Literal, Protocol
 
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl, field_validator, model_validator
 
-QUERY_RULES_VERSION = "darija-rules-v4"
+QUERY_RULES_VERSION = "darija-rules-v5"
+# v5 changes only query matching/expansion, never document tokens or vectors.
+# Keep the explicit v4 boundary; other index formats still require re-ingestion.
+COMPATIBLE_CORPUS_QUERY_RULES = ("darija-rules-v4", QUERY_RULES_VERSION)
 CORPUS_SCHEMA_VERSION = 2
 SOURCE_POLICY_VERSION = "reviewed-currency-v1"
 LANGUAGE_POLICY_VERSION = "language-routing-v2"

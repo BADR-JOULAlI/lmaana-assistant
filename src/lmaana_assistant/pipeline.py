@@ -6,8 +6,8 @@ from uuid import uuid4
 
 from lmaana_assistant.config import Settings
 from lmaana_assistant.contracts import (
+    COMPATIBLE_CORPUS_QUERY_RULES,
     CORPUS_SCHEMA_VERSION,
-    QUERY_RULES_VERSION,
     SOURCE_POLICY_VERSION,
     AnswerResponse,
     Embedder,
@@ -44,7 +44,7 @@ class AnswerPipeline:
                 and self.manifest["embedding"] == embedder.fingerprint
                 and self.manifest["dimension"] == embedder.dimension
                 and self.manifest["distance"] == "cosine"
-                and self.manifest["query_rules"] == QUERY_RULES_VERSION
+                and self.manifest["query_rules"] in COMPATIBLE_CORPUS_QUERY_RULES
                 and self.manifest.get("chunker") == CHUNKER_VERSION
             )
             self.release = self.manifest["release"]

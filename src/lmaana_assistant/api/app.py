@@ -14,6 +14,7 @@ from lmaana_assistant.audio import MAX_AUDIO_BYTES, validate_wav
 from lmaana_assistant.config import Settings
 from lmaana_assistant.contracts import (
     LANGUAGE_POLICY_VERSION,
+    QUERY_RULES_VERSION,
     SOURCE_POLICY_VERSION,
     AnswerRequest,
     AnswerResponse,
@@ -99,6 +100,8 @@ def create_app(settings: Settings | None = None, *, embedder=None, generator=Non
             "chunk_count": pipeline.manifest["chunk_count"] if pipeline else 0,
             "source_policy": SOURCE_POLICY_VERSION,
             "language_policy": LANGUAGE_POLICY_VERSION,
+            "query_rules": QUERY_RULES_VERSION,
+            "corpus_query_rules": pipeline.manifest["query_rules"] if pipeline else None,
             "generator": app.state.generator.name,
             "asr_backend": config.asr_backend,
             "asr_model": app.state.asr.model,

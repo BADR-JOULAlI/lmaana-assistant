@@ -6,7 +6,11 @@ import os
 import httpx
 import streamlit as st
 
-from lmaana_assistant.contracts import LANGUAGE_POLICY_VERSION, SOURCE_POLICY_VERSION
+from lmaana_assistant.contracts import (
+    LANGUAGE_POLICY_VERSION,
+    QUERY_RULES_VERSION,
+    SOURCE_POLICY_VERSION,
+)
 from lmaana_assistant.language import LABELS
 from lmaana_assistant.presentation import can_display_answer, paragraphs_html
 from lmaana_assistant.source_policy import utc_today
@@ -74,8 +78,9 @@ except (httpx.HTTPError, ValueError):
 if health.get("ready") and (
     health.get("source_policy") != SOURCE_POLICY_VERSION
     or health.get("language_policy") != LANGUAGE_POLICY_VERSION
+    or health.get("query_rules") != QUERY_RULES_VERSION
 ):
-    health = {"ready": False, "reason": "Réindexez le corpus et redémarrez l’API mise à jour."}
+    health = {"ready": False, "reason": "Redémarrez l’API avec la même version que l’interface."}
 cached_answer = st.session_state.get("answer")
 if cached_answer and not can_display_answer(cached_answer, health, utc_today()):
     st.session_state.pop("answer", None)

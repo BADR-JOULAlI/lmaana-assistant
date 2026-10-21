@@ -151,9 +151,21 @@ available for recovery; this version does not automatically delete them.
 Changing the embedding model or its revision requires re-ingestion. Query aliases, chunking,
 model identifiers, dimensions, and distance conventions are versioned. Similarity thresholds are
 uncalibrated starting values, not probabilities of correctness.
-The current query rules are `darija-rules-v4`, and the lexical profile is
+The current query rules are `darija-rules-v5`, and the lexical profile is
 `lexical-sha256-4096-v3` (search-only normalization and multilingual question stop words).
-Re-ingest after upgrading query or chunking rules; the API rejects incompatible indexes.
+The v5 query-only update accepts v4 indexes without re-ingestion: document tokens and
+vectors are unchanged. Other query-index versions and changed chunking/embedding profiles
+are rejected until re-ingestion. Readiness exposes `query_rules` (running rules) separately
+from `corpus_query_rules` (rules recorded at ingestion); cached answers from older running
+rules are hidden. Restart both the API and Streamlit after the update.
+Matching ignores Arabic stretching and accents without rewriting displayed questions.
+Recognized Darija/Arabizi document counts are no longer classified as fees; an explicit
+cost/payment cue is required. Registration and eligibility cues also cover English.
+Aliases use whole-word Latin matches: `vaccin` no longer expands to `CIN`.
+The offline regressions use authored software fixtures, not administrative requirements.
+They check routing and abstention, not real-model fluency or retrieval recall. The lexical
+profile can still miss equivalent passages without shared vocabulary; use a separately
+evaluated multilingual embedding profile before claiming semantic language understanding.
 Chunking is `source-boundaries-v2-pdf-sections-size350-overlap50`. Card-delivery
 duration questions require delivery and duration cues, not just a deposit deadline.
 This is a targeted heuristic, not general semantic understanding.
