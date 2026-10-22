@@ -132,13 +132,16 @@ threshold on these probes and then report the same probes as held-out performanc
 
 The Qwen adapter uses the documented instruction format from the
 [official model card](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B).
-Install the optional models extra, supply a full 40-character checkpoint commit,
-and keep the device on CPU for an experiment that should not consume the ASR GPU:
+Use a dedicated virtual environment **without** `--system-site-packages`, install
+the optional models extra, and supply a full 40-character checkpoint commit.
+Keep the device on CPU for an experiment that should not consume the ASR GPU:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -e ".[models]"
+python -m venv work/qwen-benchmark/.venv
+.\work\qwen-benchmark\.venv\Scripts\python.exe -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+.\work\qwen-benchmark\.venv\Scripts\python.exe -m pip install -e ".[models]"
 # Replace FULL_40_HEX_COMMIT with the checkpoint revision being evaluated.
-.\.venv\Scripts\lmaana.exe benchmark-retrieval configs/retrieval-benchmark.example.json --backend qwen --revision FULL_40_HEX_COMMIT --device cpu --query-mode expanded --output outputs/retrieval-qwen-expanded-v1.json
+.\work\qwen-benchmark\.venv\Scripts\lmaana.exe benchmark-retrieval configs/retrieval-benchmark.example.json --backend qwen --revision FULL_40_HEX_COMMIT --device cpu --query-mode expanded --output outputs/retrieval-qwen-expanded-v1.json
 ```
 
 This command is **local-cache-only by default**, using Sentence Transformers'
@@ -148,6 +151,30 @@ Missing dependencies or a missing cached model fail explicitly; there is no
 silent lexical fallback. The application has a separate opt-in
 `LMAANA_EMBEDDING_LOCAL_FILES_ONLY=true` setting. Neither command changes `.env`
 or activates a new serving index.
+
+The Qwen benchmark uses explicit CLI arguments and profile defaults only:
+neither the serving `LMAANA_*` environment nor `.env` selects its checkpoint or
+ASR/generation settings. The normal application still reads its environment.
+Reports now include `runtime` with Python/OS, installed library versions,
+the model parameter's actual device and dtype, maximum sequence length and CPU
+thread settings. Optional libraries are not imported merely to collect metadata;
+absent versions and non-model fields remain null, not guessed from CLI arguments.
+The dependency analysis kept this provenance collection outside the serving path.
+Inherited optional training packages can import unrelated native libraries even
+for an embedding-only task. On this machine, a system-site-packages trial imported
+global `datasets`/PyArrow and hit Windows Application Control. The dedicated
+inference environment excludes these optional packages; no system policy is
+changed. A missing Sentence Transformers package and a failed dependency import
+now have distinct errors, with the original exception retained for diagnostics.
+
+Preparation on 22 October 2026 confirmed the official Qwen checkpoint revision
+`97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3` and its
+[published weight metadata](https://huggingface.co/api/models/Qwen/Qwen3-Embedding-0.6B/revision/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3?blobs=true):
+`model.safetensors`, 1,191,586,416 bytes, expected SHA-256
+`0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd`.
+These are expected artifact identifiers, **not** a claim that an incomplete
+download has passed verification or that inference has run. Do not load a partial
+file. Model preparation is separate from the local-cache-only benchmark command.
 
 No actual Qwen benchmark result is supplied with this baseline: adapter tests use
 controlled vectors and loader stubs. Run both query modes on the same dataset

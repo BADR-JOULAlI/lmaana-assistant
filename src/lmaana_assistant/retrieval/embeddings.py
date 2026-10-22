@@ -47,8 +47,19 @@ class QwenEmbedder:
             raise DependencyUnavailable("Qwen requires a full EMBEDDING_REVISION commit hash.")
         try:
             from sentence_transformers import SentenceTransformer
+        except ModuleNotFoundError as exc:
+            if exc.name == "sentence_transformers":
+                raise DependencyUnavailable(
+                    "Install the models extra to use Qwen embeddings."
+                ) from exc
+            raise DependencyUnavailable(
+                "A Qwen runtime dependency could not import. Check the isolated model environment."
+            ) from exc
         except ImportError as exc:
-            raise DependencyUnavailable("Install the models extra to use Qwen embeddings.") from exc
+            raise DependencyUnavailable(
+                "The Qwen runtime could not import. Check dependency compatibility and "
+                "application-control diagnostics."
+            ) from exc
         try:
             self.model = SentenceTransformer(
                 settings.embedding_model,

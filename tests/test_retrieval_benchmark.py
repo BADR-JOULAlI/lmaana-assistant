@@ -298,12 +298,18 @@ def test_qwen_cli_explicitly_controls_model_downloads(
     if allow_download:
         arguments.append("--allow-download")
     monkeypatch.setattr("sys.argv", arguments)
+    # A serving-only environment must not select another checkpoint or prevent
+    # the isolated Qwen experiment from starting.
+    monkeypatch.setenv("LMAANA_ASR_MODEL", "invalid-serving-profile")
+    monkeypatch.setenv("LMAANA_EMBEDDING_MODEL", "unrelated-serving-model")
+    monkeypatch.setenv("LMAANA_CONTEXT_TOKENS", "invalid-serving-budget")
 
     def fake_factory(settings):
         assert settings.embedding_revision == revision
         assert settings.embedding_device == "cpu"
         assert settings.embedding_local_files_only is not allow_download
         assert settings.asr_backend == "unavailable"
+        assert settings.embedding_model == "Qwen/Qwen3-Embedding-0.6B"
         return ControlledEmbedder()
 
     monkeypatch.setattr("lmaana_assistant.cli.make_embedder", fake_factory)

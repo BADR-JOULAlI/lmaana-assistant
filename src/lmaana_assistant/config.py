@@ -81,3 +81,13 @@ class Settings(BaseSettings):
     @property
     def active_path(self) -> Path:
         return self.corpus_dir / "active.json"
+
+
+class BenchmarkSettings(Settings):
+    """Use explicit CLI arguments/defaults, never the serving environment or .env."""
+
+    @classmethod
+    def settings_customise_sources(
+        cls, settings_cls, init_settings, env_settings, dotenv_settings, file_secret_settings
+    ):
+        return (init_settings,)

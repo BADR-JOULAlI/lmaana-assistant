@@ -10,7 +10,7 @@ from time import perf_counter
 
 import httpx
 
-from lmaana_assistant.config import Settings
+from lmaana_assistant.config import BenchmarkSettings, Settings
 from lmaana_assistant.ingestion.pipeline import ingest
 from lmaana_assistant.retrieval.embeddings import make_embedder
 
@@ -105,6 +105,7 @@ def main() -> int:
                     RetrievalBenchmark,
                     benchmark_retrieval,
                 )
+                from lmaana_assistant.evaluation.runtime import runtime_metadata
                 from lmaana_assistant.retrieval.embeddings import LexicalEmbedder
 
                 dataset = RetrievalBenchmark.model_validate_json(
@@ -121,7 +122,7 @@ def main() -> int:
                     LexicalEmbedder()
                     if args.backend == "lexical"
                     else make_embedder(
-                        Settings(
+                        BenchmarkSettings(
                             _env_file=None,
                             embedding_backend="qwen",
                             embedding_revision=args.revision,
@@ -141,6 +142,7 @@ def main() -> int:
                 result["embedding_backend"] = args.backend
                 result["requested_device"] = args.device if args.backend == "qwen" else "cpu"
                 result["python"] = sys.version.split()[0]
+                result["runtime"] = runtime_metadata(embedder)
             report = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False)
             if args.output:
                 args.output.parent.mkdir(parents=True, exist_ok=True)
