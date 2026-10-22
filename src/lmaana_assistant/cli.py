@@ -11,6 +11,7 @@ from time import perf_counter
 import httpx
 
 from lmaana_assistant.config import BenchmarkSettings, Settings
+from lmaana_assistant.errors import DependencyUnavailable
 from lmaana_assistant.ingestion.pipeline import ingest
 from lmaana_assistant.retrieval.embeddings import make_embedder
 
@@ -179,6 +180,15 @@ def main() -> int:
             asr.close()
     except (OSError, ValueError, RuntimeError, httpx.HTTPError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
+        # Keep native import failures actionable in this local experiment. Do not
+        # expose arbitrary chained exceptions (for example authenticated URLs).
+        if (
+            args.command == "benchmark-retrieval"
+            and isinstance(exc, DependencyUnavailable)
+            and isinstance(exc.__cause__, ImportError)
+        ):
+            cause = exc.__cause__
+            print(f"Import failure ({type(cause).__name__}): {cause}", file=sys.stderr)
         return 1
     return 0
 

@@ -24,12 +24,20 @@ Whisper-large-v3-turbo is the planned comparison baseline. See the
   lines, clickable citations, full original passages, and a visible corpus inventory.
 - Language routing for French, standard Arabic, Darija in Arabic script, Latin Darija
   (Arabizi) and English, including explicit reply-language override and localized abstentions.
+- Editable microphone/WAV transcription through a native Lmaana 2.4 adapter or a
+  preloaded WSL worker; the local checkpoint has been smoke-tested in Ubuntu-24.04.
+- Offline WER/CER and answer-metric evaluation, plus isolated multilingual passage
+  ranking with raw/expanded queries and per-language metrics.
 
 Ollama 0.35.1 has run real Qwen3-4B inference locally on the RTX 5070 Laptop GPU.
-The Qwen embedding and standalone llama.cpp adapters still have only contract tests here.
+The Qwen embedding and standalone llama.cpp adapters still have only contract tests here:
+the attempted Windows CPU embedding benchmark is blocked by Application Control in a
+native dependency. Its checkpoint is fully downloaded and checksum-verified; see the
+[runtime finding](docs/evaluation.md#local-qwen-runtime-finding-22-october-2026).
 Successful inference is not proof of language quality or factual correctness: initial
 Arabic/Darija/Arabizi trials exposed mistranslations and incomplete answers.
-Speech transcription, TTS, and model quality benchmarks are not implemented yet.
+TTS and held-out ASR/generation quality benchmarks remain unimplemented. The measured
+lexical retrieval diagnostic uses fictional software passages, not administrative gold data.
 Excerpt mode returns `source_excerpts`, not an LLM-generated answer.
 Each excerpt must be an exact substring of its cited passage. Display-only whitespace
 reflow does not modify the source or API text. At most two complete passages are shown;

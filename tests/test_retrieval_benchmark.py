@@ -317,6 +317,60 @@ def test_qwen_cli_explicitly_controls_model_downloads(
     assert json.loads(capsys.readouterr().out)["model_download_allowed"] is allow_download
 
 
+@pytest.mark.parametrize(
+    "cause, expected_detail",
+    [
+        (
+            ModuleNotFoundError("No module named 'sentence_transformers'"),
+            "Import failure (ModuleNotFoundError): No module named 'sentence_transformers'",
+        ),
+        (
+            ImportError("DLL load failed: An Application Control policy has blocked this file."),
+            "Import failure (ImportError): DLL load failed: An Application Control policy",
+        ),
+        (OSError("A non-import cause must not be exposed automatically."), None),
+    ],
+)
+def test_qwen_cli_explains_import_failure_without_overwriting_a_report(
+    tmp_path, monkeypatch, capsys, cause, expected_detail
+):
+    from lmaana_assistant.cli import main
+
+    path = write_dataset(tmp_path)
+    output = tmp_path / "previous-report.json"
+    previous = '{"previous": true}\n'
+    output.write_text(previous, encoding="utf-8")
+
+    def broken_factory(settings):
+        raise DependencyUnavailable("Qwen runtime could not initialize.") from cause
+
+    monkeypatch.setattr("lmaana_assistant.cli.make_embedder", broken_factory)
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "lmaana",
+            "benchmark-retrieval",
+            str(path),
+            "--backend",
+            "qwen",
+            "--revision",
+            "a" * 40,
+            "--output",
+            str(output),
+        ],
+    )
+    assert main() == 1
+    captured = capsys.readouterr()
+    assert captured.out == ""
+    assert "Error: Qwen runtime could not initialize." in captured.err
+    if expected_detail is not None:
+        assert expected_detail in captured.err
+    else:
+        assert "Import failure" not in captured.err
+        assert str(cause) not in captured.err
+    assert output.read_text(encoding="utf-8") == previous
+
+
 @pytest.mark.parametrize("local_only", [False, True])
 def test_qwen_adapter_passes_pin_and_local_cache_policy(monkeypatch, local_only):
     calls = []

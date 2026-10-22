@@ -140,6 +140,8 @@ Keep the device on CPU for an experiment that should not consume the ASR GPU:
 python -m venv work/qwen-benchmark/.venv
 .\work\qwen-benchmark\.venv\Scripts\python.exe -m pip install torch --index-url https://download.pytorch.org/whl/cpu
 .\work\qwen-benchmark\.venv\Scripts\python.exe -m pip install -e ".[models]"
+# Verify native runtime imports before spending time downloading model weights.
+.\work\qwen-benchmark\.venv\Scripts\python.exe -c "import torch, sentence_transformers; print(torch.__version__, sentence_transformers.__version__)"
 # Replace FULL_40_HEX_COMMIT with the checkpoint revision being evaluated.
 .\work\qwen-benchmark\.venv\Scripts\lmaana.exe benchmark-retrieval configs/retrieval-benchmark.example.json --backend qwen --revision FULL_40_HEX_COMMIT --device cpu --query-mode expanded --output outputs/retrieval-qwen-expanded-v1.json
 ```
@@ -163,18 +165,40 @@ The dependency analysis kept this provenance collection outside the serving path
 Inherited optional training packages can import unrelated native libraries even
 for an embedding-only task. On this machine, a system-site-packages trial imported
 global `datasets`/PyArrow and hit Windows Application Control. The dedicated
-inference environment excludes these optional packages; no system policy is
+inference environment excludes these optional packages, but this alone does not
+guarantee that its other native dependencies are permitted. No system policy is
 changed. A missing Sentence Transformers package and a failed dependency import
-now have distinct errors, with the original exception retained for diagnostics.
+have distinct errors, with the original exception retained for diagnostics.
+The local benchmark CLI also prints an explicitly chained import cause on stderr;
+it does not silently substitute lexical scores or overwrite a prior report on a
+model-initialization failure. Arbitrary non-import causes are not automatically
+printed as extra diagnostic details.
 
-Preparation on 22 October 2026 confirmed the official Qwen checkpoint revision
+### Local Qwen runtime finding (22 October 2026)
+
+Preparation confirmed the official Qwen checkpoint revision
 `97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3` and its
 [published weight metadata](https://huggingface.co/api/models/Qwen/Qwen3-Embedding-0.6B/revision/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3?blobs=true):
 `model.safetensors`, 1,191,586,416 bytes, expected SHA-256
 `0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd`.
-These are expected artifact identifiers, **not** a claim that an incomplete
-download has passed verification or that inference has run. Do not load a partial
-file. Model preparation is separate from the local-cache-only benchmark command.
+The completed local download matched both this byte count and SHA-256 and was
+placed in the pinned Hugging Face snapshot alongside its configuration/tokenizer
+files. No partial weight file was loaded. Artifact integrity is verified; model
+inference is **not** verified.
+
+The clean Windows environment uses Python 3.12.10, Torch `2.14.1+cpu`,
+Transformers `4.57.6`, Sentence Transformers `5.7.0`, scikit-learn `1.9.1` and
+NumPy `2.5.4`. `datasets` and PyArrow are absent. Torch imports and reports four CPU
+threads; importing Sentence Transformers fails in scikit-learn's
+`_openmp_helpers.cp312-win_amd64.pyd` with an Application Control denial. Windows
+Code Integrity events 3033/3077 independently record the denied module. This is
+not a missing-checkpoint or GPU-memory error. No Qwen weights were loaded and
+neither query mode ran.
+
+Stop at this security boundary: no policy changes, DLL relocation, or repeated
+attempts to execute the blocked module. The machine owner/security administrator
+must review the dependency and policy before this Windows runtime can be retried.
+The active corpus, serving environment and Lmaana 2.4 ASR runtime remain unchanged.
 
 No actual Qwen benchmark result is supplied with this baseline: adapter tests use
 controlled vectors and loader stubs. Run both query modes on the same dataset
