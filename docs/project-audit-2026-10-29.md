@@ -94,6 +94,27 @@ Starlette concernant son intégration HTTPX ; il reste à suivre lors d'une évo
 du runtime de tests. La matrice Linux/Windows et Python 3.11/3.12 est configurée
 dans la CI ; ces quatre exécutions distantes ne sont pas des résultats de l'essai local.
 
+## Suite exécutée — validation des vecteurs
+
+La continuation implémente aussi la validation numérique à la frontière Qdrant.
+La même fonction vérifie et normalise désormais les vecteurs pour le stockage et
+le benchmark. L'ingestion contrôle tous les embeddings avant de créer une
+collection : nombre, dimension, valeurs numériques finies et direction non nulle.
+Une ingestion invalide conserve le manifeste actif et ne crée aucune collection.
+
+Les vecteurs valides sont normalisés avant la conversion interne en float32 ;
+des tests avec des amplitudes `1e300` et `1e-300` vérifient des scores finis.
+Une requête nulle renvoie une liste vide sans classement Qdrant. Une requête
+malformée produit une erreur de dépendance HTTP 503 et libère le créneau
+d'inférence ; le test vérifie qu'une requête valide suivante peut réussir.
+
+**395 tests passent** après ce lot ; Ruff et le formatage sont conformes. Le
+diagnostic lexical étendu a été rejoué avec le même hash de données et les
+classements/scores correspondent exactement au rapport local du 22 octobre :
+Recall@1 = 17/35 et 3/5 négatifs avec un candidat au seuil 0,18. Ces mesures
+concernent toujours la fixture logicielle, sans génération de réponses.
+Rapport local : `outputs/retrieval-lexical-expanded-vector-guard.json`.
+
 ## Prochains ajouts à prioriser
 
 1. **Jeu d'évaluation documentaire réel et revu.** Ajouter des questions et
@@ -104,18 +125,15 @@ dans la CI ; ces quatre exécutions distantes ne sont pas des résultats de l'es
    après validation du composant Windows bloqué. Comparer rappel, rangs, négatifs
    et latence à corpus identique, puis calibrer sur un jeu distinct. Le dernier
    essai documenté du 22 octobre n'a pas exécuté l'inférence Qwen.
-3. **Validation des vecteurs à l'ingestion.** Étendre les contrôles déjà présents
-   dans le benchmark aux vecteurs reçus par le stockage : valeurs finies, dimensions
-   et traitement explicite des vecteurs nuls avant création d'une collection.
-4. **Mesures ASR sur audio pertinent.** Références transcrites et revues, séparation
+3. **Mesures ASR sur audio pertinent.** Références transcrites et revues, séparation
    des locuteurs, comparaison Lmaana 2.4/Whisper, WER/CER brut et protocole normalisé
    explicitement distinct, temps de chargement et d'inférence.
-5. **Recherche hybride et reranking.** Évaluer leur intérêt après le baseline
+4. **Recherche hybride et reranking.** Évaluer leur intérêt après le baseline
    sémantique, notamment pour les noms, acronymes et questions avec code-switching.
    Les conserver uniquement si leur gain mesuré justifie le coût supplémentaire.
-6. **Couverture humaine des réponses.** Vérifier les affirmations, conditions
+5. **Couverture humaine des réponses.** Vérifier les affirmations, conditions
    omises, qualité Darija et raisons d'abstention sur des sorties annotées.
-7. **Exploitation.** Mesurer mémoire et coexistence GPU, temps de disponibilité,
+6. **Exploitation.** Mesurer mémoire et coexistence GPU, temps de disponibilité,
    renouvellement des revues de sources, puis définir les besoins d'historique,
    export ou TTS à partir d'usages observés.
 

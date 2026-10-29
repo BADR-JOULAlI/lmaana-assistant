@@ -99,6 +99,11 @@ The dataset SHA-256 is over canonical validated JSON, not the source file's layo
 Record the embedding fingerprint, query-rules version, query mode, cutoffs and
 threshold when comparing runs. Exact score ties sort by passage ID. Zero vectors
 are not arbitrarily ranked; malformed or nonfinite embeddings fail the run.
+Cosine-vector validation is shared with the production store. Ingestion rejects
+zero document vectors before creating a collection; this diagnostic counts and
+omits them from ranking. Production searches return no results for a zero query
+and report malformed query embeddings as dependency failures. Valid vectors are
+normalized before Qdrant's float32 storage/search to handle extreme finite scales.
 
 `retrieval` reports thresholded metrics; `unfiltered_retrieval` reports ranking
 quality before the threshold. Both are also stratified by **annotated**, not

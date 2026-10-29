@@ -5,6 +5,7 @@ from qdrant_client import QdrantClient, models
 from lmaana_assistant.config import Settings
 from lmaana_assistant.contracts import Chunk, Evidence
 from lmaana_assistant.errors import DependencyUnavailable
+from lmaana_assistant.retrieval.vectors import unit_vector
 
 
 class VectorStore:
@@ -24,8 +25,14 @@ class VectorStore:
     def build(
         self, release: str, chunks: list[Chunk], vectors: list[list[float]], dimension: int
     ) -> None:
-        if len(chunks) != len(vectors) or any(len(vector) != dimension for vector in vectors):
-            raise ValueError("Embedding count or dimension does not match the corpus.")
+        if not chunks or len(chunks) != len(vectors):
+            raise ValueError("Embedding count does not match a nonempty corpus.")
+        validated = []
+        for vector in vectors:
+            normalized = unit_vector(vector, dimension)
+            if normalized is None:
+                raise ValueError("Embedding document vector is zero; review the source or model.")
+            validated.append(normalized)
         if self.exists(release):
             raise ValueError("Refusing to overwrite an existing corpus release.")
         self.client.create_collection(
@@ -40,7 +47,7 @@ class VectorStore:
                         id=chunk.id, vector=vector, payload=chunk.model_dump(mode="json")
                     )
                     for chunk, vector in zip(
-                        chunks[start : start + 64], vectors[start : start + 64], strict=True
+                        chunks[start : start + 64], validated[start : start + 64], strict=True
                     )
                 ],
             )
@@ -49,8 +56,19 @@ class VectorStore:
             raise ValueError("Corpus validation failed: stored chunk count does not match.")
 
     def search(self, release: str, vector: list[float], limit: int) -> list[Evidence]:
+        config = self.client.get_collection(release).config.params.vectors
+        if not isinstance(config, models.VectorParams):
+            raise DependencyUnavailable("The corpus must use a single unnamed vector profile.")
+        try:
+            normalized = unit_vector(vector, config.size)
+        except ValueError as exc:
+            raise DependencyUnavailable(
+                "The embedding model returned an invalid query vector."
+            ) from exc
+        if normalized is None:
+            return []
         points = self.client.query_points(
-            release, query=vector, limit=limit, with_payload=True
+            release, query=normalized, limit=limit, with_payload=True
         ).points
         return [
             Evidence(chunk=Chunk.model_validate(point.payload), score=point.score)

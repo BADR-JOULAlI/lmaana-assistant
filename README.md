@@ -173,6 +173,11 @@ Remote URLs and each redirect must use HTTPS on an explicitly allowed host with 
 **Stop the API before ingesting.** Local Qdrant storage has one owner. Then run ingestion and
 restart the API. A failed build leaves the previous active corpus intact. Old collections remain
 available for recovery; this version does not automatically delete them.
+All document embeddings are checked before a collection is created: count,
+dimension, finite numeric values and nonzero direction. Valid vectors are normalized
+for cosine storage. Invalid query embeddings produce a dependency error (503);
+a zero query returns no results. These checks also protect Qdrant's float32 storage
+from overflow/underflow when an otherwise finite model vector has an extreme scale.
 
 Changing the embedding model or its revision requires re-ingestion. Query aliases, chunking,
 model identifiers, dimensions, and distance conventions are versioned. Similarity thresholds are

@@ -14,6 +14,7 @@ from lmaana_assistant.evaluation.dataset import EvaluationDataset, Identifier, R
 from lmaana_assistant.evaluation.metrics import latency_summary
 from lmaana_assistant.evaluation.runner import evaluate
 from lmaana_assistant.normalization import process_query
+from lmaana_assistant.retrieval.vectors import unit_vector
 
 
 class BenchmarkPassage(StrictModel):
@@ -79,17 +80,6 @@ class RetrievalBenchmark(StrictModel):
         return self
 
 
-def _unit_vector(values: list[float], dimension: int) -> list[float] | None:
-    if len(values) != dimension or any(not math.isfinite(value) for value in values):
-        raise ValueError("Embedding vectors must have the declared dimension and finite values.")
-    length = math.hypot(*values)
-    if not math.isfinite(length):
-        raise ValueError("Embedding vector magnitude must be finite.")
-    if not length:
-        return None  # A zero lexical query has no cosine ranking, not an arbitrary tie.
-    return [value / length for value in values]
-
-
 def benchmark_retrieval(
     dataset: RetrievalBenchmark,
     embedder: Embedder,
@@ -112,14 +102,14 @@ def benchmark_retrieval(
     vectors = embedder.encode_documents([passage.text for passage in dataset.passages])
     if len(vectors) != len(dataset.passages):
         raise ValueError("Embedding count does not match the number of passages.")
-    documents = [_unit_vector(vector, embedder.dimension) for vector in vectors]
+    documents = [unit_vector(vector, embedder.dimension) for vector in vectors]
     document_ms = (perf_counter() - started) * 1000
     rows, filtered, unfiltered = [], [], []
     for question in dataset.questions:
         started = perf_counter()
         query = process_query(question.question)
         text = query.search_text if query_mode == "expanded" else question.question
-        vector = _unit_vector(embedder.encode_query(text), embedder.dimension)
+        vector = unit_vector(embedder.encode_query(text), embedder.dimension)
         ranked = []
         if vector is not None:
             for passage, document in zip(dataset.passages, documents, strict=True):
