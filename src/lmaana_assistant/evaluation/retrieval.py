@@ -80,6 +80,11 @@ class RetrievalBenchmark(StrictModel):
         return self
 
 
+def dataset_sha256(dataset: RetrievalBenchmark) -> str:
+    canonical = json.dumps(dataset.model_dump(mode="json"), sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(canonical.encode()).hexdigest()
+
+
 def benchmark_retrieval(
     dataset: RetrievalBenchmark,
     embedder: Embedder,
@@ -155,12 +160,11 @@ def benchmark_retrieval(
             )
         )["retrieval"]
 
-    canonical = json.dumps(dataset.model_dump(mode="json"), sort_keys=True, ensure_ascii=False)
     return {
         "schema_version": 1,
         "evaluated_at": datetime.now(UTC).isoformat(),
         "dataset_id": dataset.dataset_id,
-        "dataset_sha256": hashlib.sha256(canonical.encode()).hexdigest(),
+        "dataset_sha256": dataset_sha256(dataset),
         "notes": dataset.notes,
         "scope": (
             "Isolated embedding retrieval on supplied passages; no active index, topic/currentness "

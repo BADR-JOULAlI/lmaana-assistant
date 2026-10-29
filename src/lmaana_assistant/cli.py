@@ -12,7 +12,7 @@ import httpx
 
 from lmaana_assistant.config import BenchmarkSettings, Settings
 from lmaana_assistant.errors import DependencyUnavailable
-from lmaana_assistant.ingestion.pipeline import ingest
+from lmaana_assistant.ingestion.pipeline import atomic_json, ingest
 from lmaana_assistant.retrieval.embeddings import make_embedder
 
 
@@ -46,11 +46,44 @@ def main() -> int:
     retrieval.add_argument(
         "--allow-download", action="store_true", help="Allow downloading the pinned Qwen model."
     )
+    preparation = commands.add_parser(
+        "prepare-retrieval", help="Prepare a local benchmark from a hash-pinned source snapshot."
+    )
+    preparation.add_argument("spec", type=Path)
+    preparation.add_argument("--manifest", required=True, type=Path)
+    preparation.add_argument("--source", required=True, type=Path)
+    preparation.add_argument("--output", required=True, type=Path)
     commands.add_parser("doctor", help="Print profile and corpus status without loading models.")
     args = parser.parse_args()
     try:
         # Offline tools must not depend on a machine's serving/ASR configuration.
-        settings = None if args.command in {"evaluate", "benchmark-retrieval"} else Settings()
+        offline = {"evaluate", "benchmark-retrieval", "prepare-retrieval"}
+        settings = None if args.command in offline else Settings()
+        if args.command == "prepare-retrieval":
+            from lmaana_assistant.contracts import SourceManifest
+            from lmaana_assistant.evaluation.sources import (
+                SourceBenchmarkSpec,
+                prepare_source_benchmark,
+            )
+            from lmaana_assistant.ingestion.sources import MAX_BYTES
+
+            provenance_path = args.output.with_name(f"{args.output.stem}.provenance.json")
+            for target in (args.output, provenance_path):
+                for original in (args.spec, args.manifest, args.source):
+                    if target.resolve() == original.resolve() or (
+                        target.exists() and target.samefile(original)
+                    ):
+                        raise ValueError("Benchmark outputs must not overwrite any input file.")
+            spec = SourceBenchmarkSpec.model_validate_json(args.spec.read_text(encoding="utf-8"))
+            manifest = SourceManifest.model_validate_json(args.manifest.read_text(encoding="utf-8"))
+            with args.source.open("rb") as stream:
+                raw = stream.read(MAX_BYTES + 1)
+            dataset, provenance = prepare_source_benchmark(spec, manifest, raw)
+            atomic_json(provenance_path, provenance)
+            atomic_json(args.output, dataset.model_dump(mode="json"))
+            print(f"Benchmark saved to {args.output.resolve()}")
+            print(f"Provenance saved to {provenance_path.resolve()}")
+            return 0
         if args.command in {"evaluate", "benchmark-retrieval"} and args.output:
             if args.output.resolve() == args.dataset.resolve() or (
                 args.output.exists() and args.output.samefile(args.dataset)

@@ -120,7 +120,10 @@ Rapport local : `outputs/retrieval-lexical-expanded-vector-guard.json`.
 1. **Jeu d'évaluation documentaire réel et revu.** Ajouter des questions et
    annotations avec sources exactes, réponses attendues, négatifs et variantes
    Darija/Arabizi/français/arabe/anglais. Séparer développement et test final par
-   scénario/source. Les 40 questions logicielles actuelles servent au développement.
+   scénario/source. Une première [base de 50 questions sur snapshot DGI](source-benchmark.md)
+   est préparée et mesurée ; ses labels restent des brouillons à relire humainement.
+   Étendre à plusieurs sources avant de constituer le jeu final. Les 40 questions
+   logicielles servent aussi au développement.
 2. **Comparaison sémantique mesurée.** Reprendre les deux modes du benchmark Qwen
    après validation du composant Windows bloqué. Comparer rappel, rangs, négatifs
    et latence à corpus identique, puis calibrer sur un jeu distinct. Le dernier

@@ -118,6 +118,12 @@ this small diagnostic as a production throughput or cold-start benchmark.
 
 ### Lexical development baseline
 
+For a separate development probe grounded in the pinned DGI snapshot, see
+[source-benchmark.md](source-benchmark.md). Its authored labels remain draft;
+results must not be presented as independently reviewed or held-out accuracy.
+`prepare-retrieval` creates local passages and provenance from the supplied source,
+without activating a corpus or renewing its source review.
+
 Measured with `lexical-sha256-4096-v3`, `darija-rules-v5`, cosine threshold `0.18`,
 and the committed fixture hash
 `f8f25f3c04cf1a3eb2d4a8281b752038c44c82090a17044b9720f4baf9f5374d`:

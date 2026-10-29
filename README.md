@@ -328,7 +328,7 @@ src/lmaana_assistant/
   pipeline.py                    retrieval-to-response orchestration
   config.py                      explicit environment-driven profiles
   diagnostics.py                 dependency metadata inspection (lmaana-env)
-  cli.py                         ingest, serve, ask, evaluate, benchmark-retrieval, doctor
+  cli.py                         ingest, serve, ask, evaluate, prepare-retrieval, benchmark-retrieval, doctor
 configs/                         source manifests and authored evaluation fixtures
 tests/                           offline unit and integration tests
 docs/                            architecture and model integration notes
@@ -351,6 +351,10 @@ The [evaluation protocol](docs/evaluation.md#running-passage-retrieval-instead-o
 explains raw/expanded comparisons, per-language Recall@K/MRR, negative queries and
 the optional pinned, local-cache-only Qwen profile. The fictional software fixture
 is a development diagnostic, not an administrative or end-to-end quality benchmark.
+The [source-snapshot diagnostic](docs/source-benchmark.md) adds a local preparation
+command and 50 draft multilingual questions tied to the pinned DGI source. Passage
+hashes, extraction locations and question families accompany the local dataset;
+the PDF and extracted text are not committed. Human annotation review is pending.
 CI checks Python 3.11/3.12 on Linux and Windows.
 These are software behavior checks, not a certification of administrative correctness.
 
