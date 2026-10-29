@@ -27,3 +27,17 @@ def test_transcript_result_keeps_uncalibrated_confidence_nullable():
 
     assert result.confidence is None
     assert result.audio_duration_ms == 1200
+
+
+def test_valid_worker_segments_preserve_original_transcript_at_duration_boundary():
+    text = "  شنو الوثائق؟\n"
+    result = TranscriptResult(
+        text=text,
+        model="Lmaana/lmaana-2.4",
+        revision="test-revision",
+        audio_duration_ms=1200,
+        segments=[{"text": text, "start_ms": 0, "end_ms": 1200}],
+        timings_ms={"load": 0, "inference": 12.5},
+    )
+    assert result.text == result.segments[0].text == text
+    assert result.segments[0].end_ms == result.audio_duration_ms

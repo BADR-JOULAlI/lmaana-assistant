@@ -131,3 +131,31 @@ def test_http_bridge_rejects_another_model(settings):
         assert not provider.ready()
         with pytest.raises(DependencyUnavailable):
             provider.transcribe(validate_wav(wav_bytes(), "q.wav"))
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"text": "   "},
+        {"segments": [{"text": "x", "start_ms": 500, "end_ms": 100}]},
+        {"segments": [{"text": "x", "start_ms": 0, "end_ms": 1001}]},
+        {"timings_ms": {"inference": -1}},
+        {"timings_ms": {"inference": float("inf")}},
+    ],
+    ids=["blank", "reversed-segment", "outside-audio", "negative-timing", "infinite-timing"],
+)
+def test_http_bridge_rejects_corrupt_transcriptions_as_dependency_failures(settings, changes):
+    audio = validate_wav(wav_bytes(), "q.wav")
+    payload = FakeNative().transcribe(audio).model_dump(mode="json") | changes
+    # Infinity cannot be emitted by a compliant JSON encoder; use response text
+    # to reproduce a worker sending the non-standard token accepted by json.loads.
+    import json
+
+    with httpx.Client(
+        base_url=settings.asr_worker_url,
+        transport=httpx.MockTransport(
+            lambda request: httpx.Response(200, text=json.dumps(payload))
+        ),
+    ) as client:
+        with pytest.raises(DependencyUnavailable, match="invalid response"):
+            LocalLmaanaASR(settings, client).transcribe(audio)

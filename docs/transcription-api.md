@@ -37,6 +37,12 @@ Successful responses contain:
 }
 ```
 
+Transcript text and model/revision identifiers must be nonblank. Segment timestamps
+must satisfy `0 <= start_ms <= end_ms <= audio_duration_ms`, and timing values must
+be finite and nonnegative. A malformed HTTP worker transcript is treated as a
+dependency failure (`503`); it is never submitted to retrieval as a valid question.
+Returned transcript text is preserved, including meaningful spacing and script.
+
 The API does not persist uploaded audio. The adapter writes one temporary WAV for
 the native runtime and removes it after the inference attempt. The raw transcript
 must remain editable before it is submitted to the retrieval pipeline. The first

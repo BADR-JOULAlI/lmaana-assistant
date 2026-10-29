@@ -111,6 +111,24 @@ with this initial example; this is not a retrieval-quality benchmark.
 
 On Linux/macOS, use `.venv/bin/python` and `.venv/bin/lmaana` instead of the Windows paths.
 With uv installed, `uv sync --locked --extra dev --extra ui` installs the locked environment.
+CI uses this same lockfile on Python 3.11/3.12, Linux and Windows, including the UI
+extra. Core runs do not require the `models` extra. The example environment starts
+with ASR unavailable; configure the native adapter or WSL worker to enable speech.
+
+Inspect dependency versions in the selected interpreter without loading models or
+reading serving settings:
+
+```powershell
+.\.venv\Scripts\python.exe -m lmaana_assistant.diagnostics --profile ui --profile dev
+```
+
+The installed `lmaana-env` command provides the same JSON report. A missing or
+incompatible direct dependency returns exit code 1. Select `--profile models` in
+the dedicated embedding environment, or omit profiles for core only. This checks
+installed metadata; native DLLs, model files, CUDA and service readiness require
+separate verification. `uv pip check` checks installed transitive requirements.
+See the [dependency audit and executed improvement prompt](docs/project-audit-2026-10-29.md)
+for findings, changes and the prioritized roadmap.
 
 ## Commands and endpoints
 
@@ -304,6 +322,7 @@ src/lmaana_assistant/
   language.py                    detection, reply-language policy and localized messages
   pipeline.py                    retrieval-to-response orchestration
   config.py                      explicit environment-driven profiles
+  diagnostics.py                 dependency metadata inspection (lmaana-env)
   cli.py                         ingest, serve, ask, evaluate, benchmark-retrieval, doctor
 configs/                         source manifests and authored evaluation fixtures
 tests/                           offline unit and integration tests

@@ -8,6 +8,23 @@ from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+def _valid_loopback_url(value: str) -> bool:
+    try:
+        url = urlsplit(value)
+        return (
+            url.scheme == "http"
+            and url.hostname in {"127.0.0.1", "localhost", "::1"}
+            and url.username is None
+            and url.password is None
+            and url.path in {"", "/"}
+            and not url.query
+            and not url.fragment
+            and (url.port is None or 1 <= url.port <= 65535)
+        )
+    except ValueError:
+        return False
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="LMAANA_", env_file=".env", extra="ignore")
 
@@ -43,32 +60,14 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_profile(self):
-        worker_url = urlsplit(self.asr_worker_url)
-        if (
-            worker_url.scheme != "http"
-            or worker_url.hostname not in {"127.0.0.1", "localhost", "::1"}
-            or worker_url.username is not None
-            or worker_url.password is not None
-            or worker_url.path not in {"", "/"}
-            or worker_url.query
-            or worker_url.fragment
-        ):
+        if not _valid_loopback_url(self.asr_worker_url):
             raise ValueError("The ASR worker must use an HTTP loopback URL.")
         if self.max_output_tokens >= self.context_tokens:
             raise ValueError("Output budget must be smaller than the context window.")
         if self.context_chunks > self.retrieval_k:
             raise ValueError("context_chunks must not exceed retrieval_k.")
         if self.generator_backend == "ollama":
-            url = urlsplit(self.ollama_url)
-            if (
-                url.scheme != "http"
-                or url.hostname not in {"127.0.0.1", "localhost", "::1"}
-                or url.username is not None
-                or url.password is not None
-                or url.path not in {"", "/"}
-                or url.query
-                or url.fragment
-            ):
+            if not _valid_loopback_url(self.ollama_url):
                 raise ValueError("Ollama must use an HTTP loopback URL without credentials.")
             if "cloud" in self.ollama_model.lower():
                 raise ValueError("This profile only supports local Ollama models.")

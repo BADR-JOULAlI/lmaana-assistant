@@ -12,6 +12,8 @@ dependencies = [
     "beautifulsoup4>=4.12,<5",
     "fastapi>=0.115,<1",
     "httpx>=0.27,<1",
+    "packaging>=23.2,<27",
+    "pydantic>=2.6,<3",
     "pydantic-settings>=2.6,<3",
     "pypdf>=5,<7",
     "python-multipart>=0.0.9,<1",
@@ -22,6 +24,7 @@ dependencies = [
 
 [project.scripts]
 lmaana = "lmaana_assistant.cli:main"
+lmaana-env = "lmaana_assistant.diagnostics:main"
 
 [project.optional-dependencies]
 dev = [
